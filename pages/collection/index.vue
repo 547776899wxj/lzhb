@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-white" :isBack="false" backMethod="backHandle2">
 			<block slot="backText"></block>
 			<block slot="content">
-				<text>托收</text>
+				<text>兑换</text>
 			</block>
 		</cu-custom>
 		<view class="user-info">

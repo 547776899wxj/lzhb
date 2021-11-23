@@ -135,7 +135,7 @@
 				</view>
 				<view class="info-list">
 					<view class="fs-24 lh-34 fc-303">拆盒时间</view>
-					<view class="fs-24 lh-34 fc-303">{{goodsGameBoxItems[0].goodsItemOpenTime}}</view>
+					<view class="fs-24 lh-34 fc-303" v-if="goodsGameBoxItems.length>0">{{goodsGameBoxItems[0].goodsItemOpenTime}}</view>
 				</view>
 				<!-- <view class="info-list" v-if="order.orderStatus >= 100 && order.orderOpType"> -->
 					<!-- 待回收 待发货 -->

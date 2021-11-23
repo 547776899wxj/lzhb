@@ -112,7 +112,8 @@ export const getVoucherByUser = data => post('/rest/v4/pp/app/user/getVoucherByU
 export const getUserSignIn = data => post('/rest/v4/pp/app/user/getUserSignIn', data);
 // 用户签到
 export const userSignIn = data => post('/rest/v4/pp/app/user/userSignIn', data);
- 
+ // 盲盒商品
+export const getGoodsGameboxItemShow = data => post('/rest/v4/pp/app/user/goodsGamebox/getGoodsGameboxItemShow', data);
 	
 
 /** 通用文件上传OSS **/

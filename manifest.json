@@ -2,8 +2,8 @@
     "name" : "量子盒变",
     "appid" : "__UNI__8C2C00C",
     "description" : "",
-    "versionName" : "1.8.1",
-    "versionCode" : 181,
+    "versionName" : "1.8.7",
+    "versionCode" : 187,
     "transformPx" : false,
     "plus" : {
         "kernel" : {
@@ -165,7 +165,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/rest" : {
-                    "target" : "http://192.168.0.149:8502",
+                    "target" : "http://192.168.0.142:8502",
                     // "target" : "https://boxapp.citytp.com",
                     "changeOrigin" : true,
                     "pathRewrite" : {

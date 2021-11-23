@@ -9,7 +9,7 @@
 		<view class="container">
 			<view class="flex-center fdc">
 				<!-- <view class="fs-26 fc-f lh-36 mb20" v-if="info.userMoneyShareStatus == 1">合拍账户余额</view> -->
-				<view class="fs-26 fc-f lh-36 mb20">剩余魔石</view>
+				<view class="fs-34 fc-f lh-36 mb20">剩余魔石</view>
 				<view class="fs-64 lh-80 fc-f mb20">{{info.money}}</view>
 	<!-- 			<view class="pr" v-if="info.frozenMoney>0">
 					<navigator  url="./assets/cold">
@@ -17,7 +17,9 @@
 						<text class="cuIcon-right fc-f more-cold"></text>
 					</navigator>
 				</view> -->
-				<view class="pr mt48 mb48">
+				<view class="fs-34 fc-f lh-36 mb20">奖金池</view>
+				<view class="fs-64 lh-80 fc-f mb20">{{info.money}}</view>
+				<view class="pr mb38">
 				</view>
 				<!-- <view class="flex-between ac wp100 mb20">
 					<navigator class="operation-btn shallow flex-center fc-f" url="../login/bankcard">
@@ -56,6 +58,7 @@
 						</view>
 					</view>
 				</view>
+				
 			</view>
 		</view>
 	</view>

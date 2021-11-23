@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<view class="manage-box">
-				<view class="flex-center mb18">
+				<view class="flex-center mb18" v-if="level==0">
 					<view class="wp50 flex-center" >
 						<view class="line-btn bdr-45 flex-center fc-303 operation-btn" @click="onAllUp">全部收起</view>
 					</view>

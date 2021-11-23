@@ -90,7 +90,7 @@
 						<image class="more-icon" src="../../static/img/icon/more-icon.png" mode=""></image>
 					</view>
 				</view>
-				<view class="recovery-btn" @click="confirmRecycle">确定回收<text class="fc-f ml10 mr10">{{couponAmount + popupData.goodsItemRecyclePrice}}</text>魔石</view>
+				<view class="recovery-btn" @click="confirmRecycle">确定回收<text class="fc-f ml10 mr10">{{totalRecoveryPrice}}</text>魔石</view>
 				<view class="coupon" v-show="isCouponShow">
 					<view class="text-center fs-40 mb20">
 						可使用抵用券
@@ -174,6 +174,11 @@
 				couponData:[],
 				couponAmount:0,
 				recycleing:false
+			}
+		},
+		computed:{
+			totalRecoveryPrice:function(){
+				return (+this.couponAmount + this.popupData.goodsItemRecyclePrice).toFixed(2);
 			}
 		},
 		mounted: function () {
@@ -333,9 +338,9 @@
 						if(item.checked){
 							let voucherValue = this.popupData.goodsItemRecyclePrice + item.voucherValue;
 							if(voucherValue > this.popupData.goodsItemPrice){
-								this.couponAmount = this.popupData.goodsItemPrice - this.popupData.goodsItemRecyclePrice ;
+								this.couponAmount = (this.popupData.goodsItemPrice - this.popupData.goodsItemRecyclePrice ).toFixed(2);
 							}else{
-								this.couponAmount = item.voucherValue
+								this.couponAmount = item.voucherValue.toFixed(2)
 							}
 						}else{
 							this.couponAmount = 0
@@ -364,7 +369,9 @@
 					this.recycleing = false
 					uni.$toast.showToast('成功回收')
 					this.refreshPage()
-					this.getVoucherByUser();
+					if(voucherId){
+						this.getVoucherByUser();
+					}
 					this.$refs.popup.close();
 				}).catch(err => {
 					this.recycleing = false

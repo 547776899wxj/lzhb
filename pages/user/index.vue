@@ -204,6 +204,7 @@ export default {
 				mask: false
 			});
 		}
+		
 	},
 	mounted: function() {
 		uni.$utils.blankScreenWatchAndRelunch(this, '#containerId', '/pages/user/index');
@@ -221,6 +222,10 @@ export default {
 		uni.$api.getOnSaleGameBoxCount().then(res => {
 			this.onSaleGameBoxCount = res.count || 0;
 		});
+		if(uni.getStorageSync('triggerShareUser')){
+			this.shareUser();
+			uni.setStorageSync('triggerShareUser',false);
+		}
 	},
 	methods: {
 		// 获取抵用券
@@ -230,6 +235,7 @@ export default {
 				.then(res => {
 					this.voucherCount = res.count;
 					uni.hideLoading();
+					
 				})
 				.catch(res => {
 					uni.hideLoading();

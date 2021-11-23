@@ -37,7 +37,7 @@
 			<view class="openbox wrapper" v-for="item,index in gameboxList">
 				<view class="dflex ac mb20">
 					<image src="../../static/img/icon/openbox-icon@2x.png" mode="" class="openbox-icon"></image>
-					<view class="fs-28 lh-28 fc-464 fw-b">价值{{item.goods.goodsPrice}}魔石盲盒</view>
+					<view class="fs-28 lh-28 fc-464 fw-b">{{item.goods.goodsTitle}}</view>
 					<image :src="item.goods.goodsDescIcon" class="openbox-ident" v-if="item.goods.goodsDescIcon"></image>
 				</view>
 				<view class="blindbox-list dflex ai-fs mb44">
@@ -200,7 +200,7 @@
 							<image src="../../static/img/icon/goods-radio@2x.png" class="change-btn cur" v-else></image>
 							<view class="fs-30 lh-30 fc-464">全选</view>
 						</view>
-						<view class="recovery-btn mb20" @click="onRecycle">7折回收 <text class="fs-36 lh-36 fc-f fw-b ml10 mr10">{{couponAmount + paySuccessResult.totalRecyclePrice}}</text> 魔石</view>
+						<view class="recovery-btn mb20" @click="onRecycle">7折回收 <text class="fs-36 lh-36 fc-f fw-b ml10 mr10">{{ totalRecoveryPrice }}</text> 魔石</view>
 						<view class="now-btn" @click="onSendPackage">立即发货</view>
 					</view>
 				</view>
@@ -251,6 +251,16 @@
 				this.channelData = res.data;
 			});
 		},
+		watch:{
+			showPaySuccess(newShow){
+				if(newShow){
+					this.couponAmount = 0;
+					this.couponData.forEach(item =>{
+						if(item.checked) {item.checked = false}
+					})
+				}
+			}
+		},
 		components:{
 			chooseaddress
 		},
@@ -258,6 +268,9 @@
 			style() {
 				var StatusBar = this.StatusBar;
 			},
+			totalRecoveryPrice:function(){
+				return (+this.couponAmount + this.paySuccessResult.totalRecyclePrice).toFixed(2);
+			}
 		},
 		onLoad() {
 			this.onFetchData()
@@ -292,9 +305,9 @@
 						if(item.checked){
 							let voucherValue = this.paySuccessResult.totalRecyclePrice + item.voucherValue;
 							if(voucherValue > this.paySuccessResult.totalPrice){
-								this.couponAmount = this.paySuccessResult.totalPrice - this.paySuccessResult.totalRecyclePrice ;
+								this.couponAmount = (this.paySuccessResult.totalPrice - this.paySuccessResult.totalRecyclePrice).toFixed(2) ;
 							}else{
-								this.couponAmount = item.voucherValue
+								this.couponAmount = item.voucherValue.toFixed(2);
 							}
 						}else{
 							this.couponAmount = 0;
@@ -471,6 +484,9 @@
 					uni.$toast.showToast('回收成功')
 					this.sendOrRecycleSuccess()
 					this.onFetchUserInfo()
+					if(voucherId){
+						this.getVoucherByUser();
+					}
 					setTimeout(()=> {
 						this.couponAmount = 0;
 					},100)

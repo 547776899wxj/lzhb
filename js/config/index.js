@@ -10,7 +10,7 @@ const extConfig = {};
 domain = 'https://boxapp.citytp.com';
 // domain = 'http://192.168.0.149:8502';
 // #ifdef H5
-	domain = '/rest';
+	domain = '/rest'; 
 // #endif
 /* QQ地图KEY */
 
@@ -31,6 +31,9 @@ export const CLAIM_AUTH_LOGIN_PAGES = ['/pages/user/'];
 /* 要求授权登录的接口--可以是目录或者具体接口 */
 
 export const CLAIM_AUTH_LOGIN_API = ['/rest/v4/user/'];
+/**tabbar 页面**/
+
+export const STATIC_URL = [''];
 /**tabbar 页面**/
 
 /*请求响应*/

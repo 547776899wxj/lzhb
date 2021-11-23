@@ -75,15 +75,19 @@
 					<view class="goods-list">
 						<view class="goods" v-for="item in itemShow" @click="showItemGoodsInfoFun(item.goodsItemGoodsId)">
 							<image :src="item.goodsImage" class="goods-image"></image>
-							<view class="fs-22 lh-36 fc-464 fw-b mb16 line2">{{ item.goodsTitle }}</view>
-							<view class="dflex ai-fs fdc">
-								<view class="fs-20 lh-20 fc-464 td-lt dflex ai-fe mb10">
+							<view class="fs-22 lh-36 fc-464 fw-b mb10 line2">{{ item.goodsTitle }}</view>
+							<view class="dflex  fdc">
+								<!-- <view class="fs-20 lh-20 fc-464 td-lt dflex ai-fe mb10">
 									<view class="fs-20 lh-20">原价</view>
 									￥{{ item.goodsOriginalPrice }}
 								</view>
 								<view class="fs-28 lh-28 fc-ff0 dflex ai-fe">
 									<view class="fw-b">{{ item.goodsPrice }}</view>
 									<view class="fs-22 lh-22 mb2">魔石</view>
+								</view> -->
+								<view class="fs-26 lh-28 fc-ff0 dflex ">
+									<view class="lh-20 pr10">原价</view>
+									<view class="fw-b">￥{{ item.goodsPrice }}</view>
 								</view>
 								<!-- <view class="fs-22 lh-22 fc-464 fw-b"></view> -->
 							</view>
@@ -157,9 +161,9 @@
 				</view>
 				<view class="padding-sm" style="height: calc(100% - 160rpx);">
 					<scroll-view scroll-y="true" style="height: calc(100% - 296rpx);">
-						<view class="cabinet-list" v-for="(item, index) in paySuccessResult.rows">
-							<view class="goods-info dflex ac">
-								<view @click="onSelectBoxItem(index)">
+						<view class="cabinet-list" v-for="(item, index) in paySuccessResult.rows" :key='index'>
+							<view class="goods-info dflex ac" @click="showItemGoodsInfoFun(item.goodsItemGoodsId)">
+								<view @click.stop="onSelectBoxItem(index)">
 									<view class="goods-radio" v-if="!item.checked"></view>
 									<image src="../../static/img/icon/goods-radio@2x.png" class="goods-radio checked" v-else></image>
 								</view>
@@ -223,7 +227,7 @@
 						</view>
 						<view class="recovery-btn mb20" @click="onRecycle">
 							7折回收
-							<text class="fs-36 lh-36 fc-f fw-b ml10 mr10">{{couponAmount + paySuccessResult.totalRecyclePrice }}</text>
+							<text class="fs-36 lh-36 fc-f fw-b ml10 mr10">{{ totalRecoveryPrice }}</text>
 							魔石
 						</view>
 						<view class="now-btn" @click="onSendPackage">立即发货</view>
@@ -240,7 +244,7 @@
 				<scroll-view scroll-y="true" class="hp100">
 					<view class="goods-swiper" v-if="itemGoodsInfo.goodsImages.length > 0">
 						<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
-							<swiper-item v-for="item in itemGoodsInfo.goodsImages">
+							<swiper-item v-for="(item,index) in itemGoodsInfo.goodsImages" :key='index'>
 								<view class="swiper-item"><image :src="item.goodsImagePath" class="goods-banner"></image></view>
 							</swiper-item>
 						</swiper>
@@ -304,7 +308,10 @@ export default {
 			blindbox: [{ checked: true }, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 			isCouponShow: false,
 			couponData: [],
-			couponAmount: 0
+			couponAmount: 0,
+			start:0,
+			limit:6,
+			isReachBottom:true,
 		};
 	},
 	created: function() {
@@ -312,15 +319,37 @@ export default {
 			this.channelData = res.data;
 		});
 	},
+	computed:{
+		totalRecoveryPrice:function(){
+			return (+this.couponAmount + this.paySuccessResult.totalRecyclePrice).toFixed(2);
+		}
+	},
+	watch:{
+		showPaySuccess(newShow){
+			if(newShow){
+				this.couponAmount = 0;
+				this.couponData.forEach(item =>{
+					if(item.checked) {item.checked = false}
+				})
+			}
+		}
+	},
+	onReachBottom(){
+		if(this.isReachBottom){
+			this.start += this.limit;
+			this.getGoodsGameboxItemShow();
+		}
+	},
 	components: {
 		chooseaddress
 	},
 	onLoad(e) {
 		this.goodsId = e.goodsId || '1';
 		this.onFetchData();
+		this.onFetchUserInfo();
+		this.getGoodsGameboxItemShow();
 	},
 	onShow() {
-		this.onFetchUserInfo();
 		this.getVoucherByUser();
 		// this.paySuccess("821092637667001")
 	},
@@ -349,9 +378,9 @@ export default {
 					if(item.checked){
 						let voucherValue = this.paySuccessResult.totalRecyclePrice + item.voucherValue;
 						if(voucherValue > this.paySuccessResult.totalPrice){
-							this.couponAmount = this.paySuccessResult.totalPrice - this.paySuccessResult.totalRecyclePrice ;
+							this.couponAmount = (this.paySuccessResult.totalPrice - this.paySuccessResult.totalRecyclePrice).toFixed(2) ;
 						}else{
-							this.couponAmount = item.voucherValue
+							this.couponAmount = item.voucherValue.toFixed(2);
 						}
 					}else{
 						this.couponAmount = 0;
@@ -360,6 +389,21 @@ export default {
 				else if(item.checked) {item.checked = false}
 			})
 		},
+		getGoodsGameboxItemShow(){
+			uni.$api
+				.getGoodsGameboxItemShow({
+					goodsId: this.goodsId,
+					offset: this.start,
+					limit: this.limit,
+				})
+				.then(res => {
+					this.itemShow = this.itemShow.concat(res.itemShow);
+					if(res.itemShow.length < this.limit){
+						this.isReachBottom = false;
+					}
+				});
+			
+		},
 		onFetchData() {
 			uni.$api
 				.getGoodsGameboxDetail({
@@ -367,7 +411,6 @@ export default {
 				})
 				.then(res => {
 					this.goods = res.goods || {};
-					this.itemShow = res.itemShow || {};
 					this.openList = res.openList || {};
 					this.showOpenList = group(this.openList, 2);
 				});
@@ -542,6 +585,9 @@ export default {
 					uni.$toast.showToast('回收成功');
 					this.sendOrRecycleSuccess();
 					this.onFetchUserInfo();
+					if(voucherId){
+						this.getVoucherByUser();
+					}
 					setTimeout(()=> {
 						uni.hideLoading();
 						this.couponAmount = 0;

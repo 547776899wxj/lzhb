@@ -2,7 +2,7 @@
 	<view>
 		<cu-custom bgColor="bg-white" :isBack="true">
 			<block slot="backText"></block>
-			<block slot="content">最新中奖名单</block>
+			<block slot="content">最新开盒名单</block>
 		</cu-custom>
 		<view class="container" :style="{height:'calc(100vh - ' + CustomBar +'px)'}">
 			<scroll-view scroll-y="true" style="height: 100%;">

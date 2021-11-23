@@ -6,7 +6,7 @@
 		<view class="siwper-box mb20" v-if="indexAdvList.length > 0">
 			<view class="swiper-bg"></view>
 			<swiper :indicator-dots="false" :autoplay="true" :interval="3000" :duration="1000" :circular="true" @change="swiperChange">
-				<swiper-item v-for="item in indexAdvList" @click="onIndexAdvFunc(item)">
+				<swiper-item v-for="item in indexAdvList" @click="navTo(item)">
 					<view class="swiper-item">
 						<image :src="item.advUrl" class="banner"></image>
 					</view>
@@ -126,7 +126,7 @@
 		},
 		onShow() {
 			this.onFetchData();
-			if(uni.$auth.isLogin()){
+			if(uni.$auth.isLoginAndCheckPeopleStatus()){
 				this.getUserSignIn();
 			}
 		},
@@ -183,6 +183,24 @@
 					uni.navigateTo({
 						url: '/pages/blindbox/openBox?goodsId='+item.advGoodsId
 					})
+				}
+			},
+			//轮播图跳转
+			navTo(){						
+				if (item.advNavigationUrl){
+					if(item.advNavigationUrl == '/pages/user/index'){
+						uni.switchTab({
+							url: '/pages/user/index',
+							success(){
+								uni.setStorageSync('triggerShareUser',true);
+							}
+						})
+					}
+					else{
+						uni.navigateTo({
+							url: item.advNavigationUrl
+						})
+					}
 				}
 			},
 			toNewBox() {

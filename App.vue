@@ -167,37 +167,47 @@ export default {
 			}
 			//#endif
 		},
-		downLoadNewApk(url, forceUpdate) {
+		downLoadNewApk(url) {
 			// uni.$toast.showToast("正在后台下载中，请稍候");
 			// forceUpdate == 1 静默更新 只能更新wgt包
-
+			var showLoading = null;
 			var downloadTask = uni.downloadFile({
 				url: url,
 				success: downloadResult => {
 					if (downloadResult.statusCode === 200) {
-						plus.runtime.install(downloadresult.tempfilepath,{force: false},
+						plus.runtime.install(downloadResult.tempFilePath,{force: false},
 							function() {
-								console.log('更新成功更新成功更新成功');
-								if (forceUpdate != 1) {
-									plus.runtime.restart();
-									showLoading.close();
-								}
+								showLoading.close();
+								plus.runtime.restart();
 							},
 							function(e) {
-								console.error('install fail...');
+								uni.showModal({
+									title: '提示',
+									content: '下载失败',
+									showCancel: false,
+									success: res => {},
+								});
+								showLoading.close();
 							}
 						);
+					}else{
+						uni.showModal({
+							title: '提示',
+							content: '下载失败',
+							showCancel: false,
+							success: res => {},
+						});
+						showLoading.close();
 					}
 				}
 			});
-			if (forceUpdate != 1) {
-				var showLoading = plus.nativeUI.showWaiting('正在下载');
-				var prg = 0;
-				downloadTask.onProgressUpdate(e => {
-					prg = parseInt(e.progress);
-					showLoading.setTitle('  正在下载' + prg + '%,请勿关闭页面  ');
-				});
-			}
+
+			showLoading = plus.nativeUI.showWaiting('正在下载');
+			var prg = 0;
+			downloadTask.onProgressUpdate(e => {
+				prg = parseInt(e.progress);
+				showLoading.setTitle('  正在下载' + prg + '%,请勿关闭页面  ');
+			});
 		},
 		checkAndroidUpdate() {
 			var that = this;
@@ -207,6 +217,7 @@ export default {
 				var param = {
 					clientType: 'android',
 					versionCode: widgetInfo.versionCode
+					// versionCode: 181
 				};
 
 				uni.$api.checkAppVersion(param).then(res => {
@@ -240,6 +251,7 @@ export default {
 				var param = {
 					clientType: 'ios',
 					versionCode: widgetInfo.versionCode
+					// versionCode: 180,
 				};
 
 				uni.$api.checkAppVersion(param).then(res => {
