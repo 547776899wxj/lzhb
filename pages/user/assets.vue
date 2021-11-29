@@ -18,7 +18,7 @@
 					</navigator>
 				</view> -->
 				<view class="fs-34 fc-f lh-36 mb20">奖金池</view>
-				<view class="fs-64 lh-80 fc-f mb20">{{info.money}}</view>
+				<view class="fs-64 lh-80 fc-f mb20">{{prizePoolData.prizePoolTotal}}</view>
 				<view class="pr mb38">
 				</view>
 				<!-- <view class="flex-between ac wp100 mb20">
@@ -72,17 +72,26 @@
 				reqList:[],
 				noteList:[],
 				reqSum:0,
-				noteSum:0
+				noteSum:0,
+				prizePoolData:{},
 			}
 		},
 		// mounted() {
 		// 	this.initData();
 		// },
+		onLoad() {
+			this.getPrizePool();
+		},
 		onShow(){
 			this.initData();
 			// this.fetchShareData();
 		},
 		methods: {
+			getPrizePool(){
+				uni.$api.getPrizePool().then(res => {
+					this.prizePoolData = res.data;
+				})
+			},
 			fetchShareData(){
 				uni.$api.getBalanceShareList().then(res => {
 					this.reqList = res.rows;

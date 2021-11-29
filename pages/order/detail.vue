@@ -2,7 +2,7 @@
 	<view>
 		<image src="/static/img/bg/order-detail-bg@2x.png" class="goods-index-bg" mode="widthFix"></image>
 		<!-- <view style="height: 60rpx;"></view>		 -->
-		<cu-custom bgImage="bgunset" :isBack="true" backMethod="backHandle2">
+		<cu-custom :bgColor='bgColor' :isBack="true" backMethod="backHandle2">
 			<block slot="backText"></block>
 			<block slot="content">
 				<text>{{order.orderStatusName}}</text>
@@ -112,10 +112,10 @@
 					<view class="fs-24 lh-34 fc-303">完成时间</view>
 					<view class="fs-24 lh-34 fc-303">{{order.orderEndTime}}</view>
 				</view>
-				<view class="info-list" v-if="order.orderMessage">
+				<!-- <view class="info-list" v-if="order.orderMessage">
 					<view class="fs-24 lh-34 fc-303 fs-0">备注</view>
 					<view class="fs-24 lh-34 fc-303">{{order.orderMessage}}</view>
-				</view>
+				</view> -->
 				<!-- 盲盒 -->
 				<template v-if="shopGamebox && order.orderPayStatus == 1">			
 					<view class="info-list">
@@ -216,6 +216,7 @@
 				userBalanceLock:"",//违约
 				customerAlert:false,
 				showAddress: false,
+				bgColor:'bg-transparent'
 			}
 		},
 		components:{
@@ -230,6 +231,13 @@
 		},
 		onShow() {
 			this.initPage()
+		},
+		onPageScroll(e){
+			if(e.scrollTop>25){
+				this.bgColor = 'bg-red'
+			}else{
+				this.bgColor = 'bg-transparent'
+			}
 		},
 		watch:{
 			outPayTime (value) {

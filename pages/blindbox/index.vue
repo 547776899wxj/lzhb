@@ -31,7 +31,8 @@
 					</view>
 				</view>
 				<view class="introduce-info" v-show="introduceInfo">
-					<img v-for="item in gameIntroductionAdvList" :src="item.advUrl" alt="">
+					<!-- <img v-for="item in gameIntroductionAdvList" :src="item.advUrl" alt=""> -->
+					<image class="introduce-info-img" v-for="item in gameIntroductionAdvList" :src="item.advUrl" mode="widthFix"></image>
 				</view>
 			</view>
 			<view class="openbox wrapper" v-for="item,index in gameboxList">
@@ -40,15 +41,21 @@
 					<view class="fs-28 lh-28 fc-464 fw-b">{{item.goods.goodsTitle}}</view>
 					<image :src="item.goods.goodsDescIcon" class="openbox-ident" v-if="item.goods.goodsDescIcon"></image>
 				</view>
-				<view class="blindbox-list dflex ai-fs mb44">
+				<view class="blindbox-list dflex ai-fs mb20">
 					<image :src="item.goods.goodsImage" class="big-img mr20"></image>
 					<view class="dflex fw-w ai-fs">
 						<image class="blindbox-img" v-for="itemGoods in item.itemShow" :src="itemGoods.goodsImage">
 						</image>
 					</view>
 				</view>
+				<view class="mb10">
+					<view class="dflex align-center fs-26 pb10" v-for="(itemTitle,indexTitle) in item.goods.goodsSubtitle" :key="index">
+						<view class="icon-point"></view>{{itemTitle.value}}
+					</view>
+				</view>
 				<view class="flex-center mb55">
-					<view class="openbox-btn mr52" @click.stop="onFastOpenBox(index)">快速开盒</view>
+					<!-- <view class="openbox-btn mr52" @click.stop="onFastOpenBox(index)">快速开盒</view> -->
+					<view class="openbox-btn mr52" @click.stop="gotoBoxDetail(index,1)">盒内预览</view>
 					<view class="openbox-btn" @click.stop="gotoBoxDetail(index)">选择开盒</view>
 				</view>
 				<view class="winner-box" v-if="item.openList.length > 0">
@@ -520,11 +527,11 @@
 				this.introduceInfo = !this.introduceInfo
 				uni.$session.setOpenGoodsGameboxInducInfo(this.introduceInfo)
 			},
-			gotoBoxDetail(index) {
+			gotoBoxDetail(index,isPreview) {
 				console.log(index)
 				let goods = this.gameboxList[index].goods
 				uni.navigateTo({
-					url: '/pages/blindbox/openBox?goodsId=' + goods.goodsId
+					url: '/pages/blindbox/openBox?goodsId=' + goods.goodsId + '&isPreview=' + isPreview
 				})
 			},
 			toRecharge() {
@@ -537,6 +544,13 @@
 </script>
 
 <style lang="scss" scoped>
+	.icon-point{
+		background-color: #FFB900;
+		border-radius: 50%;
+		width: 20rpx;
+		height: 20rpx;
+		margin-right: 20rpx;
+	}
 	.close-image{
 		position: absolute;
 		right:20px;
@@ -644,11 +658,13 @@
 	.introduce-info {
 		padding: 25rpx 0 32rpx;
 		border-top: 2rpx solid #F5F5F5;
-		
+		align-items: center;
 		display: flex;
 		flex-direction: column;
 	}
-
+	.introduce-info-img{
+		width: 670rpx;
+	}
 	.arrow-icon {
 		width: 0;
 		height: 0;

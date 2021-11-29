@@ -24,7 +24,10 @@
 
 			<view class="mt32 mb32 dflex jc-fs ac wp100">
 				<checkbox class="hh-radio fs-0 mr16 round" :class="form.isCheck?'checked':''" :checked="form.isCheck" @click="form.isCheck = !form.isCheck"></checkbox>
-				<view class="fs-22 lh-32 fc-9d">我已阅读并同意<navigator url="agreement/agreement?agreementId=1" class="fc-819 dib">《量子盒变服务协议》</navigator></view>
+				<view class="fs-22 lh-32 fc-9d">我已阅读并同意
+					<navigator url="agreement/agreement?agreementId=10" class="fc-819 dib">《用户注册协议》</navigator>
+					<navigator url="agreement/agreement?agreementId=8" class="fc-819 dib">《用户隐私协议》</navigator>
+				</view>
 			</view>
 			<view class="wp100 mb32">
 				<button class="cu-btn border-btn bg-pp fc-f lg wp100" @click="onRegister">提交</button>

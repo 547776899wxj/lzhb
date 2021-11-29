@@ -110,7 +110,9 @@
 				queryObj:{
 					pageNumber:0,
 					pageCount:99,
-					orderStatus:""
+					orderStatus:"",
+					offset:0,
+					limit:15,
 				},
 				orderList:[
 					
@@ -118,6 +120,8 @@
 				orderListLoading:false,
 				showAddress: false,
 				sendAddresssOrderId: '',
+				
+				isReachBottom:true,
 			}
 		},
 		mounted: function () {
@@ -127,7 +131,7 @@
 		// 	this.getOrderList()
 		// },
 		onLoad({orderStatus=''}) {
-			this.queryObj.orderStatus = orderStatus
+			this.queryObj.orderStatus = orderStatus;
 		},
 		onShow() {
 			if(uni.$auth.isLoginAndCheckPeopleStatus()) {
@@ -137,9 +141,6 @@
 		},
 		onPullDownRefresh() {
 			this.refreshPage()
-		},
-		onReachBottom(e) {
-			this.getOrderList()
 		},
 		methods: {
 			goToPP(){
@@ -153,6 +154,7 @@
 			resetQuery () {
 				this.queryObj.pageNumber = 0;
 				this.queryObj.pageCount = 99;
+				this.queryObj.offset = 0;
 				this.orderList = [];
 			},
 			depositAndSell (orderLotId) {
@@ -177,7 +179,10 @@
 				}
 				this.orderListLoading = true
 				this.queryObj.pageNumber++
+				this.queryObj.offset ++;
+				console.log(this.queryObj)
 				uni.$api.getOrderList(this.queryObj).then(res => {
+					;
 					if (res.success) {
 						var dataList = res.rows || []
 						this.orderList = this.orderList.concat(dataList)

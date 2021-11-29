@@ -10,6 +10,8 @@ export const loginSuccess = e => {
 			userPeopleStatus = '',
 			userBankCardStatus = '',
 	} = e || {};
+	console.log(token);
+	console.log(e);
 	uni.$session.setToken(token);
 	uni.$session.setUserId(userId);
 	uni.$session.setMobile(mobile);

@@ -311,6 +311,9 @@
 						    quality:0.85
 						}).then((compressRes)=>{
 						    // 压缩成功回调
+							uni.showLoading({
+								title:'上传中...'
+							})
 							uni.$api.uploadFileOSS(compressRes).then(result =>{
 								_self.saveUserPhoto(result.path);				
 							})
@@ -325,6 +328,7 @@
 				
 					const _self = this;
 				uni.$api.saveUserPhoto({userPhoto:url}).then(res =>{
+					uni.hideLoading();
 					uni.$toast.showSuccess('保存成功');
 					_self.userInfo.userPhoto = url
 				});

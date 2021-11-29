@@ -15,9 +15,9 @@
 						<view class="order-tab" @click="tabIndex=1" :class="{cur:tabIndex ===1}" >立即发货</view>
 					</view>
 					<view class="fs-28 lh-36 fc-ff0 wt-info bc-f tl" v-show="tabIndex===0">
-						委托成功后，平台将当前商品通过拍拍平台或闲鱼等二手交易平台进行销售，所得收益将归用户所有。<br/>
+						委托成功后，平台将当前商品通过拍拍平台进行销售，所得收益将归用户所有。<br/>
 						<view class="dflex ac">拍拍下载地址：<view class="link" @click="onCopyToClipboard('http://dl.citytp.com/j4gd')">http://dl.citytp.com/j4gd</view></view>
-						<view class="dflex ac">闲鱼下载地址：<view class="link" @click="onCopyToClipboard('https://2.taobao.com')">https://2.taobao.com</view></view>
+						<!-- <view class="dflex ac">闲鱼下载地址：<view class="link" @click="onCopyToClipboard('https://2.taobao.com')">https://2.taobao.com</view></view> -->
 					</view>
 					<view class="address-box" @click="showAddressList()" v-show="tabIndex===1">
 						<view class="flex-between ai-fs mb12">
@@ -57,11 +57,14 @@
 					<view class="operation-btnbox mt20">
 						<view class="agreement-box flex-center mb20" v-show="tabIndex===0">
 							<view class="agreenment-btn" :class="{cur:checkAgreement}" @click="checkAgreement=!checkAgreement"></view>
-							<view class="fs-26 lh-26 fc-464">我已阅读并同意<text class="fc-ffb" @click="toCollection">《托收协议》</text><text class="fc-ffb" @click="toAgreement">《支付协议》</text></view>
+							<view class="fs-26 lh-26 fc-464">我已阅读并同意
+								<text class="fc-ffb" @click="toCollection">《寄存协议》</text>
+								<!-- <text class="fc-ffb" @click="toAgreement">《支付协议》</text> -->
+							</view>
 						</view>
 						<view class="agreement-box flex-center mb20" v-show="tabIndex===1">
 							<view class="agreenment-btn" :class="{cur:checkAgreement}" @click="checkAgreement=!checkAgreement"></view>
-							<view class="fs-26 lh-26 fc-464">我已阅读并同意<text class="fc-ffb" @click="toAgreement">《支付协议》</text></view>
+							<view class="fs-26 lh-26 fc-464">我已阅读并同意<text class="fc-ffb" @click="toAgreement">《用户协议》</text></view>
 						</view>
 						<view class="blindbox-info flex-between ac mb20">
 							<view class="fs-30 lh-30 fc-464">总计：</view>
@@ -136,12 +139,12 @@
 			},
 			toAgreement () {
 				uni.navigateTo({
-					url:"/pages/login/agreement/agreement?agreementId=3"
+					url:"/pages/login/agreement/agreement?agreementId=10"
 				})
 			},
 			toCollection () {
 				uni.navigateTo({
-					url:"/pages/login/agreement/agreement?agreementId=6"
+					url:"/pages/login/agreement/agreement?agreementId=9"
 				})
 			},
 			showAddressList () {

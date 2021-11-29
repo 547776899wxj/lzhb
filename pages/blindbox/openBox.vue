@@ -32,7 +32,7 @@
 					</view>
 					<view class="blindbox-list mb42">
 						<view class="blindbox" v-for="(item, index) in blindbox" @click.stop="changeBox(item)">
-							<image src="../../static/img/images/blindbox@2x.png" class="blindbox-case"></image>
+							<image src="../../static/img/images/openBoxBg.png" class="blindbox-case"></image>
 							<image src="../../static/img/images/blindbox-cur@2x.png" class="blindbox-cur" v-if="item.checked"></image>
 						</view>
 					</view>
@@ -67,7 +67,7 @@
 						</swiper>
 					</view>
 				</view>
-				<view class="blindbox-goods">
+				<view class="blindbox-goods" id='blindboxGoods'>
 					<view class="dflex ac mb30">
 						<view class="title-icon"></view>
 						<view class="fs-28 lh-28 fc-464 fw-b">本盲盒商品</view>
@@ -85,14 +85,15 @@
 									<view class="fw-b">{{ item.goodsPrice }}</view>
 									<view class="fs-22 lh-22 mb2">魔石</view>
 								</view> -->
-								<view class="fs-26 lh-28 fc-ff0 dflex ">
-									<view class="lh-20 pr10">原价</view>
-									<view class="fw-b">￥{{ item.goodsPrice }}</view>
+								<view class="fs-26 fc-ff0 dflex align-center">
+									<view class="pr10">市场价</view>
+									<view class="fw-b">￥{{ item.goodsOriginalPrice }}</view>
 								</view>
 								<!-- <view class="fs-22 lh-22 fc-464 fw-b"></view> -->
 							</view>
 						</view>
 					</view>
+					<view class="fs-30 fc-939 text-center pb30 pt30">{{loadingText}}</view>
 				</view>
 			</view>
 		</view>
@@ -175,15 +176,14 @@
 										<view class="fs-28 lh-28 fc-464">×1</view>
 									</view>
 									<view class="flex-between ac mb20">
-										<view class="fs-28 lh-28 fc-464">价格：</view>
+										<view class="fs-28 lh-28 fc-464">市场价：</view>
 										<view class="fs-28 lh-28 fc-464">
-											<text class="fc-ff0 fw-b">{{ item.goodsItemRecyclePrice }}</text>
-											魔石
+											<text class="fc-ff0 fw-b">{{ item.goodsItemOriginalPrice }}</text>
 										</view>
 									</view>
 									<view class="flex-between ac">
-										<view class="fs-28 lh-28 fc-464"></view>
-										<view class="fs-28 lh-28 fc-464 td-lt">{{ item.goodsItemPrice }}魔石</view>
+										<view class="fs-28 lh-28 fc-464">平台价：</view>
+										<view class="fc-ff0 fw-b">{{ item.goodsItemPrice }}</view>
 									</view>
 								</view>
 							</view>
@@ -251,13 +251,16 @@
 					</view>
 					<view class="padding-sm">
 						<view class="goods-price mb20">
-							<view class="fs-46 lh-46 fc-464 fw-b mb24">¥{{ itemGoodsInfo.goodsPrice }}魔石</view>
-							<view class="dflex ac">
+							<view class="fs-40 fc-464 fw-b fc-ff0">
+								<text class="pr16">市场价</text>
+								<text>¥{{ itemGoodsInfo.goodsOriginalPrice }}</text>
+							</view>
+							<!-- <view class="dflex ac">
 								<view class="fs-26 lh-26 fc-464">
 									原价：
 									<text class="td-lt">￥{{ itemGoodsInfo.goodsOriginalPrice }}魔石</text>
 								</view>
-							</view>
+							</view> -->
 						</view>
 						<view class="dflex fdc ai-fs goods-parameter">
 							<view class="goods-name mb16">{{ itemGoodsInfo.goodsTitle }}</view>
@@ -310,8 +313,10 @@ export default {
 			couponData: [],
 			couponAmount: 0,
 			start:0,
-			limit:6,
+			limit:15,
 			isReachBottom:true,
+			loadingText:'加载中...',
+			isPreview:1,
 		};
 	},
 	created: function() {
@@ -345,11 +350,12 @@ export default {
 	},
 	onLoad(e) {
 		this.goodsId = e.goodsId || '1';
+		this.isPreview = e.isPreview;
 		this.onFetchData();
 		this.onFetchUserInfo();
-		this.getGoodsGameboxItemShow();
 	},
 	onShow() {
+		this.getGoodsGameboxItemShow();
 		this.getVoucherByUser();
 		// this.paySuccess("821092637667001")
 	},
@@ -390,6 +396,7 @@ export default {
 			})
 		},
 		getGoodsGameboxItemShow(){
+			this.loadingText = '加载中...'
 			uni.$api
 				.getGoodsGameboxItemShow({
 					goodsId: this.goodsId,
@@ -398,10 +405,26 @@ export default {
 				})
 				.then(res => {
 					this.itemShow = this.itemShow.concat(res.itemShow);
+					if(this.isPreview == 1){
+						this.$nextTick(() =>{
+							const query = uni.createSelectorQuery().in(this);
+							query.select('#blindboxGoods').boundingClientRect(data => {
+								uni.pageScrollTo({
+									scrollTop: data.top - 80,
+									duration: 300
+								})
+							}).exec();
+							this.isPreview = 0;
+						})
+					}
+					if(this.itemShow.length == 0){
+						this.loadingText = '暂无数据'
+					}
 					if(res.itemShow.length < this.limit){
 						this.isReachBottom = false;
+						this.loadingText = '没有更多啦'
 					}
-				});
+				})
 			
 		},
 		onFetchData() {
@@ -488,7 +511,9 @@ export default {
 				})
 				.then(res => {
 					this.onFetchUserInfo();
-
+					this.blindbox.map(e => (e.checked = false));
+					this.blindbox[0].checked = true;
+					this.buyCount = 1;
 					this.paying = false;
 					this.showPay = false;
 					this.paySuccess(res.orderId);
@@ -658,17 +683,16 @@ export default {
 					randomFuc();
 				});
 				tasks.push(task);
-
-				Promise.all(tasks).then(res => {
-					console.log('执行完毕', randomMap, res);
-					res.map(value => {
-						this.blindbox[value].checked = true;
-					});
-					this.buyCount = 5;
-					this.randoming = false;
-					this.$forceUpdate();
-				});
 			}
+			Promise.all(tasks).then(res => {
+				console.log('执行完毕', randomMap, res);
+				res.map(value => {
+					this.blindbox[value].checked = true;
+				});
+				this.buyCount = 5;
+				this.randoming = false;
+				this.$forceUpdate();
+			});
 		},
 		changeBox(item) {
 			if (this.randoming) return;
@@ -1060,7 +1084,7 @@ export default {
 }
 .goods-price {
 	width: 100%;
-	height: 129rpx;
+	
 	padding: 25rpx 20rpx 18rpx;
 	background-color: #fff;
 	border-radius: 10rpx;

@@ -39,6 +39,7 @@
 				if (this.bgImage) {
 					style = `${style}background-image:url(${bgImage});`;
 				}
+				console.log(bgImage);
 				return style
 			}
 		},
@@ -96,5 +97,9 @@
 <style>
 .right {
 	padding-right: 32rpx;
+}
+.bg-transparent{
+	background: transparent;
+	color: #FFFFFF;
 }
 </style>

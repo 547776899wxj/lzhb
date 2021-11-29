@@ -217,15 +217,20 @@ export default {
 			this.getExchangeApplyStatistics();
 			this.getUserSignIn();
 			this.getVoucherByUser();
+			// #ifndef MP-WEIXIN
+			setTimeout(() =>{
+				if(uni.getStorageSync('triggerShareUser')){
+					this.shareUser();
+					uni.setStorageSync('triggerShareUser',false);
+				}
+			},500)
+			// #endif
 		}
 		uni.$utils.setTabBarOrderNum();
 		uni.$api.getOnSaleGameBoxCount().then(res => {
 			this.onSaleGameBoxCount = res.count || 0;
 		});
-		if(uni.getStorageSync('triggerShareUser')){
-			this.shareUser();
-			uni.setStorageSync('triggerShareUser',false);
-		}
+		
 	},
 	methods: {
 		// 获取抵用券
@@ -271,6 +276,9 @@ export default {
 					this.signInRes.n = this.signInRes.n + 1;
 					this.$refs.signIn.open();
 					this.todaySignIn = true;
+					if(this.signInRes.n >=7) {
+						this.getVoucherByUser();
+					}
 				})
 				.catch(res => {
 					this.$refs.signIn.open();

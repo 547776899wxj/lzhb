@@ -9,7 +9,7 @@
 					<view><image class="voucher-img" src="../../../static/img/icon/voucher.png" mode=""></image></view>
 					<view>
 						<view class="coupon-name fs-30">回收抵用券</view>
-						<view class="fs-24">有效期至{{ item.voucherTime }}</view>
+						<view class="fs-24">有效期至{{ item.voucherExpireTime }}</view>
 					</view>
 				</view>
 				<view class="dflex align-center">
