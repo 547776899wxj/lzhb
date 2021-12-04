@@ -116,6 +116,10 @@ export const userSignIn = data => post('/rest/v4/pp/app/user/userSignIn', data);
 export const getGoodsGameboxItemShow = data => post('/rest/v4/pp/app/user/goodsGamebox/getGoodsGameboxItemShow', data);
 // 奖金池
 export const getPrizePool = data => post('/rest/v4/pp/app/user/getPrizePool', data);
+// 即时专区获取玩法介绍
+export const getRuleIntroductionInteger = data => post('/rest/v4/pp/app/user/goodsGamebox/getRuleIntroductionInteger ', data);
+// 获取盒子专区
+export const getGoodsPartition = data => post('/rest/v4/pp/app/user/goodsGamebox/getGoodsPartition', data);
 	
 
 /** 通用文件上传OSS **/
@@ -568,7 +572,7 @@ export const post = (url, dataSource = {}) => {
 		url: getReqDomain(url) + url,
 		data
 	}).then(res => {
-		
+		console.log(res);
 		if (isPayPost) {
 			return payDeal(res);
 		}

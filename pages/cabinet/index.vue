@@ -173,7 +173,8 @@
 				isCouponShow: false,
 				couponData:[],
 				couponAmount:0,
-				recycleing:false
+				recycleing:false,
+				voucherList:[],
 			}
 		},
 		computed:{
@@ -208,12 +209,12 @@
 			},
 			// 获取抵用券
 			getVoucherByUser(){
-				uni.$api.getVoucherByUser().then(res =>{
+				uni.$api.getVoucherByUser({voucherState:2}).then(res =>{
 					res.voucherList.forEach(item =>{
 						item.checked = false;
 						item.voucherTime = item.voucherTime.split(' ')[0];
 					});
-					this.couponData = res.voucherList;
+					this.voucherList = res.voucherList;
 				})
 			},
 			goToPP(){
@@ -380,9 +381,11 @@
 			// 打开回收popup
 			onRecycle(item){
 				this.isCouponShow = false;
-				this.couponData.forEach(item =>{
-					if(item.checked) {item.checked = false}
-				})
+				if(item.goodsItemPrice > item.goodsItemRecyclePrice){
+					this.couponData = this.voucherList;
+				}else{
+					this.couponData = [];
+				}
 				this.popupData = item;
 				this.couponAmount = 0;
 				this.$refs.popup.open();

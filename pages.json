@@ -1031,6 +1031,15 @@
             }
             
         }
+		,{
+		    "path" : "pages/blindbox/boxList",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/collection/index",
             "style" :                                                                                    

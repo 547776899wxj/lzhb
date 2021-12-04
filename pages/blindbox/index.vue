@@ -86,6 +86,7 @@
 					</view>
 				</view>
 			</view>
+			<listempty :list="gameboxList" :loading="listLoading"></listempty>
 		</view>
 		<!-- 购买弹窗 -->
 		<view class="cu-modal bottom-modal buy-modal" :class="showPay?'show':''">
@@ -222,7 +223,11 @@
 
 <script>
 	import chooseaddress from 'pages/component/chooseaddress.vue';
+	import listempty from 'pages/component/listempty.vue';
 	export default {
+		components:{
+			chooseaddress,listempty
+		},
 		data() {
 			return {
 				rechargeAndPaying:false,
@@ -251,6 +256,17 @@
 				isCouponShow: false,
 				couponData:[],
 				couponAmount:0,
+				offset:0,
+				limit:5,
+				isReachBottom:true,
+				listLoading:true,
+				partitionId:0,
+			}
+		},
+		onReachBottom(){
+			if(this.isReachBottom){
+				this.offset += this.limit;
+				this.onFetchData();
 			}
 		},
 		created: function() {
@@ -268,9 +284,7 @@
 				}
 			}
 		},
-		components:{
-			chooseaddress
-		},
+		
 		computed: {
 			style() {
 				var StatusBar = this.StatusBar;
@@ -279,8 +293,10 @@
 				return (+this.couponAmount + this.paySuccessResult.totalRecyclePrice).toFixed(2);
 			}
 		},
-		onLoad() {
-			this.onFetchData()
+		onLoad({id}) {
+			this.partitionId = id;
+			this.onFetchData();
+			this.getRuleIntroductionInteger();
 		},
 		onShow() {
 			this.introduceInfo = uni.$session.getOpenGoodsGameboxInducInfo()
@@ -289,6 +305,11 @@
 			// this.paySuccess("821092637667001")
 		},
 		methods: {
+			getRuleIntroductionInteger(){
+				uni.$api.getRuleIntroductionInteger().then(res =>{
+					this.gameIntroductionAdvList = res.gameIntroductionAdvList || []
+				})
+			},
 			// 显示抵用券列表
 			handleCouponList(){
 				if(this.couponData.length == 0) return
@@ -324,29 +345,30 @@
 				})
 			},
 			onFetchData() {
-				uni.$api.getGoodsGameboxSpecialList().then(res => {
-					this.gameboxList = res.goodsList || [{
+				this.listLoading  = true;
+				uni.$api.getGoodsGameboxSpecialList({
+					offset: this.offset,
+					limit: this.limit,
+					partitionId: this.partitionId
+				}).then(res => {
+					let gameboxList = res.goodsList || [{
 						goods: {},
 						itemShow: [],
 						openList: []
 					}]
-					console.log(res.goodsList)
-					this.gameboxList.map(e =>{
+					gameboxList.map(e =>{
 						e.showOpenList = group(e.openList,2)
 						return e
 					});
-					this.gameIntroductionAdvList = res.gameIntroductionAdvList || []
-				})
-				console.log(this.openList)
-				this.showOpenList = group(this.openList,2)
-				function group(array, subGroupLength) {
-					let index = 0;
-					let newArray = [];
-					while (index < array.length) {
-						newArray.push(array.slice(index, index += subGroupLength));
+					this.gameboxList = this.gameboxList.concat(gameboxList);
+					if(gameboxList.length < this.limit){
+						this.isReachBottom = false;
 					}
-					return newArray;
-				}
+					this.listLoading = false;
+					
+				})
+				// this.showOpenList = group(this.openList,2)
+				
 			},
 			onFetchUserInfo(){
 				uni.$api.getMhUserBalanceScore().then(res =>{
@@ -541,6 +563,15 @@
 			},
 		}
 	}
+	function group(array, subGroupLength) {
+		let index = 0;
+		let newArray = [];
+		while (index < array.length) {
+			newArray.push(array.slice(index, index += subGroupLength));
+		}
+		console.log(newArray);
+		return newArray;
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -690,6 +721,7 @@
 		height: 50rpx;
 		margin-right: 14rpx;
 		margin-left: -2rpx;
+		min-width: 50rpx;
 	}
 
 	.openbox-btn {

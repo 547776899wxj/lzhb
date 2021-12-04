@@ -2,8 +2,8 @@
     "name" : "盒变空间",
     "appid" : "__UNI__8C2C00C",
     "description" : "",
-    "versionName" : "1.9.0",
-    "versionCode" : 190,
+    "versionName" : "1.9.3",
+    "versionCode" : 193,
     "transformPx" : false,
     "plus" : {
         "kernel" : {
@@ -162,20 +162,25 @@
         }
     },
     "h5" : {
-        "title" : "量子盒变V1.0",
+        "title" : "盒变空间V1.0",
         "devServer" : {
             "port" : 8080,
             "disableHostCheck" : true,
             "proxy" : {
                 "/rest" : {
-                    "target" : "http://192.168.0.145:8502",
-                    // "target" : "https://boxapp.citytp.com",
+                    // "target" : "http://192.168.0.145:8502",
+                    "target" : "https://boxapp.citytp.com",
                     "changeOrigin" : true,
                     "pathRewrite" : {
                         "^/rest" : ""
                     }
                 }
-            }
+            },
+            "https" : false
+        },
+        "router" : {
+            "mode" : "hash",
+            "base" : "./"
         }
     },
     "_spaceID" : "62cda193-434e-4fb9-9334-bd57583c3b9e"

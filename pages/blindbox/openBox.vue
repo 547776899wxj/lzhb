@@ -175,15 +175,24 @@
 										<view class="fs-28 lh-28 fc-464">数量：</view>
 										<view class="fs-28 lh-28 fc-464">×1</view>
 									</view>
-									<view class="flex-between ac mb20">
+									<view class="flex-between ac mb10">
 										<view class="fs-28 lh-28 fc-464">市场价：</view>
 										<view class="fs-28 lh-28 fc-464">
 											<text class="fc-ff0 fw-b">{{ item.goodsItemOriginalPrice }}</text>
 										</view>
 									</view>
-									<view class="flex-between ac">
+									<view class="flex-between ac mb10">
 										<view class="fs-28 lh-28 fc-464">平台价：</view>
 										<view class="fc-ff0 fw-b">{{ item.goodsItemPrice }}</view>
+									</view>
+									<view class="flex-between ac">
+										<view class="fs-28 lh-28 fc-464">回收价：</view>
+										<view class="fc-ff0 fw-b" v-if="paySuccessResult.maxGoods.goodsItemGoodsId==item.goodsItemGoodsId && couponAmount>0">
+											{{ item.goodsItemRecyclePrice + couponAmount}}
+										</view>
+										<view class="fc-ff0 fw-b" v-else>
+											{{ item.goodsItemRecyclePrice }}
+										</view>
 									</view>
 								</view>
 							</view>
@@ -280,7 +289,6 @@
 
 <script>
 import chooseaddress from 'pages/component/chooseaddress.vue';
-
 export default {
 	data() {
 		return {
@@ -317,6 +325,7 @@ export default {
 			isReachBottom:true,
 			loadingText:'加载中...',
 			isPreview:1,
+			voucherList:[],
 		};
 	},
 	created: function() {
@@ -336,6 +345,7 @@ export default {
 				this.couponData.forEach(item =>{
 					if(item.checked) {item.checked = false}
 				})
+				this.couponData = [];
 			}
 		}
 	},
@@ -368,23 +378,24 @@ export default {
 		// 获取抵用券
 		getVoucherByUser(){
 			// getVoucherByUser
-			uni.$api.getVoucherByUser().then(res =>{
+			uni.$api.getVoucherByUser({voucherState:2}).then(res =>{
 				res.voucherList.forEach(item =>{
 					item.checked = false;
 					item.voucherTime = item.voucherTime.split(' ')[0];
 				});
-				this.couponData = res.voucherList;
+				this.voucherList = res.voucherList;
 			})
 		},
 		radioChange(e){
 			console.log(this.paySuccessResult);
+			let maxGoods = this.paySuccessResult.maxGoods;
 			this.couponData.forEach(item =>{ 
 				if(e.voucherId == item.voucherId) {
 					item.checked = !item.checked
 					if(item.checked){
-						let voucherValue = this.paySuccessResult.totalRecyclePrice + item.voucherValue;
-						if(voucherValue > this.paySuccessResult.totalPrice){
-							this.couponAmount = (this.paySuccessResult.totalPrice - this.paySuccessResult.totalRecyclePrice).toFixed(2) ;
+						let voucherValue = maxGoods.goodsItemRecyclePrice + item.voucherValue;
+						if(voucherValue > maxGoods.goodsItemPrice){
+							this.couponAmount = (maxGoods.goodsItemPrice - maxGoods.goodsItemRecyclePrice).toFixed(2) ;
 						}else{
 							this.couponAmount = item.voucherValue.toFixed(2);
 						}
@@ -510,13 +521,13 @@ export default {
 					return uni.$api.appPay(param);
 				})
 				.then(res => {
+					this.paySuccess(res.orderId);
 					this.onFetchUserInfo();
 					this.blindbox.map(e => (e.checked = false));
 					this.blindbox[0].checked = true;
 					this.buyCount = 1;
 					this.paying = false;
 					this.showPay = false;
-					this.paySuccess(res.orderId);
 				})
 				.catch(err => {
 					console.log(err);
@@ -525,6 +536,8 @@ export default {
 				});
 		},
 		paySuccess(orderId) {
+			this.paySuccessResult.rows = [];
+			this.paySuccessResult.totalRecyclePrice = 0;
 			this.paySuccessResult.orderId = orderId;
 			this.showPaySuccess = true;
 			return uni.$api
@@ -532,12 +545,9 @@ export default {
 					orderId: orderId
 				})
 				.then(res => {
-					this.paySuccessResult.rows = [];
-					this.paySuccessResult.totalRecyclePrice = 0;
-					res.rows.map(item => {
+					res.rows.map((item,index) => {
 						if (item.goodsItemSaleStatus == 0) {
 							this.paySuccessResult.rows.push(item);
-							this.paySuccessResult.totalRecyclePrice += item.goodsItemPrice;
 						}
 					});
 					this.onSelectBoxItemAll();
@@ -566,20 +576,42 @@ export default {
 			this.calcIsSelectAll();
 			this.$forceUpdate();
 		},
+		// 回收的窗口信息
 		calcIsSelectAll() {
 			var isSelectAll = true;
 			var totalRecyclePrice = 0;
 			var selectArr = [];
-			let totalPrice = 0
-			this.paySuccessResult.rows.map(e => {
+			let totalPrice = 0;
+			let maxGoods  = {
+				goodsItemPrice:0,
+				goodsItemId:0,
+				goodsItemRecyclePrice:0,
+			};
+			this.paySuccessResult.rows.map((e,index) => {
 				if (e.checked && e.goodsItemSaleStatus == 0) {
 					totalRecyclePrice += e.goodsItemRecyclePrice;
 					totalPrice += e.goodsItemPrice;
 					selectArr.push(e.goodsItemId);
+					if( this.goods.goodsPrice > e.goodsItemRecyclePrice ){
+						if(e.goodsItemRecyclePrice > maxGoods.goodsItemRecyclePrice){
+							maxGoods = {
+								goodsItemRecyclePrice: e.goodsItemRecyclePrice,
+								goodsItemId: e.goodsItemId,
+								goodsItemPrice: e.goodsItemPrice,
+							};
+							
+						}
+					}
 				} else {
 					isSelectAll = false;
 				}
 			});
+			console.log(this.voucherList);
+			//抵用券列表
+			if(maxGoods.goodsItemRecyclePrice > 0 ){
+				this.couponData = Object.assign([],this.voucherList);
+			}
+			this.paySuccessResult.maxGoods = maxGoods;
 			this.paySuccessResult.isSelectAll = isSelectAll;
 			this.paySuccessResult.totalRecyclePrice = totalRecyclePrice;
 			this.paySuccessResult.totalPrice = totalPrice

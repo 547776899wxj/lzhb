@@ -126,12 +126,12 @@
 						<view class="fs-24 lh-34 fc-303">服务中心</view>
 					</view>
 				</navigator>
-				<navigator url="/pages/user/about">
+				<!-- <navigator url="/pages/user/about">
 					<view class="flex-center fdc">
 						<image src="/static/img/icon/user-index-icon3@2x.png" mode="" class="m-icon mb16"></image>
 						<view class="fs-24 lh-34 fc-303">关于我们</view>
 					</view>
-				</navigator>
+				</navigator> -->
 				<!-- <navigator url="/pages/user/blindbox/couponcenter">
 					<view class="flex-center fdc">
 						<image src="/static/img/icon/user-index-icon4@2x.png" mode="" class="m-icon mb16"></image>
@@ -236,7 +236,7 @@ export default {
 		// 获取抵用券
 		getVoucherByUser() {
 			uni.$api
-				.getVoucherByUser()
+				.getVoucherByUser({voucherState:2})
 				.then(res => {
 					this.voucherCount = res.count;
 					uni.hideLoading();
@@ -376,6 +376,7 @@ export default {
 			var shareUrl = this.user.userShareUrl;
 			var title = this.user.userShareContent;
 			var desc = this.user.userShareContentDesc;
+			console.log(title);
 			this.shareApi(shareUrl, title, desc);
 		},
 		shareApi(shareUrl, title, desc) {

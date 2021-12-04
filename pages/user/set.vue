@@ -173,7 +173,7 @@
 			buildPoster() {
 				
 				uni.showLoading({
-					title:"正在生成中。。。"
+					title:"生成中。。。"
 				})
 				
 				var nickName = this.userInfo.userNickName?this.userInfo.userNickName:''
@@ -238,7 +238,7 @@
 						},
 						{
 							type: 'text',
-							text: '- '+nickName+'邀请您注册量子盒变领取福利 -',
+							text: '- '+nickName+'邀请您注册盒变空间领取福利 -',
 							css: {
 								width:'517rpx',
 								color: '#fff',

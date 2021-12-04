@@ -211,7 +211,7 @@ export default {
 		},
 		toBlindboxIndex() {
 			uni.navigateTo({
-				url: '/pages/blindbox/index'
+				url: '/pages/blindbox/boxList'
 			});
 		},
 		toTimeBox() {
