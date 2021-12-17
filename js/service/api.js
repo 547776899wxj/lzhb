@@ -120,6 +120,8 @@ export const getPrizePool = data => post('/rest/v4/pp/app/user/getPrizePool', da
 export const getRuleIntroductionInteger = data => post('/rest/v4/pp/app/user/goodsGamebox/getRuleIntroductionInteger ', data);
 // 获取盒子专区
 export const getGoodsPartition = data => post('/rest/v4/pp/app/user/goodsGamebox/getGoodsPartition', data);
+// 有无提现资格
+export const bonusIsEffective = data => post('/rest/v4/pp/app/user/bonusIsEffective', data);
 	
 
 /** 通用文件上传OSS **/

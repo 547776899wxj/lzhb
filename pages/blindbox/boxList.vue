@@ -18,16 +18,17 @@
 				<view class="recharge-btn" @click.stop="toRecharge()">立即充值</view>
 			</view>
 		</view>
+		<view class="line"></view>
 		<view class="container">
-			<view>
-				<image class="introduce-img" src="../../static/img/bg/share-bg.png"></image>
-			</view>
+			<navigator url="./introduction">
+				<image class="introduce-img" src="../../static/img/images/box-banner.png"></image>
+			</navigator>
 			<view class="box-list">
-				<view class="box-item dflex justify-between align-center" v-for="(item,index) in boxList" :key='index'>
+				<view class="box-item dflex justify-between align-center" v-for="(item,index) in boxList" :key='index' @click="navTo(item)">
 					<view class="box-title">{{item.partitionTitle}}</view>
 					<view class="box-btn">立即进入></view>
-					<view>
-						<image class="box-item-img" src="../../static/img/example/goods-list@2x.png" mode=""></image>
+					<view class="box-item-left">
+						<image class="box-item-img" :src="item.partitionPictureUrl" mode="heightFix"></image>
 					</view>
 				</view>
 			</view>
@@ -50,15 +51,18 @@
 			this.onFetchUserInfo();
 		},
 		onLoad() {
-			this.getRuleIntroductionInteger();
 			this.getGoodsPartition();
 		},
 		methods:{
 			getGoodsPartition(){
+				uni.showLoading({
+					title:'加载中'
+				})
 				uni.$api.getGoodsPartition({
 					offset:0,
 					limit:20,
 				}).then(res =>{
+					uni.hideLoading();
 					res.data.forEach((item)=>{
 						item.isShowInfo = false;
 					})
@@ -70,18 +74,14 @@
 					this.userInfo = res.data || {}
 				})
 			},
-			getRuleIntroductionInteger(){
-				uni.$api.getRuleIntroductionInteger().then(res =>{
-					this.gameIntroductionAdvList = res.gameIntroductionAdvList || []
-				})
-			},
+			
 			onChangeIntroducShow(){
 				this.introduceInfo = !this.introduceInfo
 				uni.$session.setOpenGoodsGameboxInducInfo(this.introduceInfo)
 			},
-			navTo(id){
+			navTo(item){
 				uni.navigateTo({
-					url: 'index?id='+id,
+					url: 'detailList?id='+item.partitionId+'&title='+item.partitionTitle,
 				});
 			},
 			toRecharge() {
@@ -94,17 +94,29 @@
 </script>
 
 <style lang="scss">
+	page{
+		background-color: #FFFFFF;
+	}
+	.line{
+		background: #EEEEEE;
+		height: 8px;
+	}
 	.container {
 		text-align: center;
 		.introduce-img{
 			height: 175rpx;
 			width: 705rpx;
+			position: relative;
+			bottom: -3px;
+			margin-top: 20rpx;
 		}
 		.box-list{
 			background: linear-gradient(0deg, #FF9F8C, #FF9F8C);
 			padding: 19rpx 19rpx 6rpx 19rpx;
 			.box-item{
-				background: linear-gradient(0deg, #FED2C0 0%, #FFFFFF 100%);
+				// background: linear-gradient(0deg, #FED2C0 0%, #FFFFFF 100%);
+				background: url(../../static/img/bg/box-list-bg.png) no-repeat;
+				background-size: 100%;
 				height: 155rpx;
 				border-radius: 5rpx;
 				margin-bottom: 27rpx;
@@ -112,21 +124,24 @@
 					font-size: 50rpx;
 					color: #F76C5A;
 					margin-left: 56rpx;
-					width: 116px;
+					width: 150px;
 					text-align: left;
 				}
 				.box-btn{
 					background: linear-gradient(90deg, #FB7E67, #F75540);
 					border-radius: 20rpx;
 					font-size: 19rpx;
-					margin-left: 34rpx;
 					color: #FFFFFF;
 					padding: 6rpx 16rpx;
 				}
-				.box-item-img{
-					width: 78rpx;
-					height: 113rpx;
-					margin-right: 63rpx;
+				.box-item-left{
+					width: 180rpx;
+					text-align: center;
+					margin-right: 8rpx;
+					.box-item-img{
+						width: 78rpx;
+						height: 113rpx;
+					}
 				}
 			}
 		}

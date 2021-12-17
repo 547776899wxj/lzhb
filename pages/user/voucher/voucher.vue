@@ -9,20 +9,24 @@
 		</view>
 		<view class="container">
 			<!-- <view class="flex-between ac mb30"><view class="fs-32 lh-32 fc-3 fw-b">我的券</view></view> -->
-			<view class="dflex justify-between  align-center coupon-item " v-for="item in voucherList" :key="item.voucherId" :class="{opt7:segmentedCurrent==1}">
-				<view class="dflex align-center">
-					<view><image class="voucher-img" src="../../../static/img/icon/voucher.png" mode=""></image></view>
-					<view>
-						<view class="coupon-name fs-30">回收抵用券</view>
-						<view class="fs-24">有效期至{{ item.voucherExpireTime }}</view>
+			<view class="coupon-item " v-for="item in voucherList" :key="item.voucherId" :class="{opt7:segmentedCurrent==1}">
+				<view class="dflex justify-between  align-center ">
+					<view class="dflex align-center">
+						<view><image class="voucher-img" src="../../../static/img/icon/voucher.png" mode=""></image></view>
+						<view>
+							<view class="coupon-name fs-30">回收抵用券</view>
+							<view class="fs-24 pb10" v-if='item.voucherUseTime && item.voucherState'>使用时间{{ item.voucherUseTime }}</view>
+							<view class="fs-24 pb10" v-else>有效期至{{ item.voucherExpireTime }}</view>
+						</view>
+					</view>
+					<view class="dflex align-center">
+						<view class="fc-red ">
+							<view class="fs-50 text-center">{{ item.voucherValue }}</view>
+							<view class="fs-24">最高抵用{{ item.voucherValue }}魔石</view>
+						</view>
 					</view>
 				</view>
-				<view class="dflex align-center">
-					<view class="fc-red ">
-						<view class="fs-50 text-center">{{ item.voucherValue }}</view>
-						<view class="fs-24">最高抵用{{ item.voucherValue }}魔石</view>
-					</view>
-				</view>
+				<view class="fs-24" style="color: #8e8e8e;margin-left: 20rpx;">注：每张抵用券仅限一个盒子使用</view>
 			</view>
 			<listempty :list="voucherList" :loading="loading"></listempty>
 		</view>
@@ -128,7 +132,7 @@ export default {
 	}
 	.coupon-name {
 		font-weight: bold;
-		padding-bottom: 16rpx;
+		padding-bottom: 10rpx;
 	}
 }
 </style>

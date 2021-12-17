@@ -122,10 +122,13 @@ export default {
 			return style;
 		}
 	},
-	onShow() {
+	onLoad() {
 		this.onFetchData();
+	},
+	onShow() {
 		if (uni.$auth.isLogin()) {
 			this.getUserSignIn();
+			uni.$api.bonusIsEffective().then(res =>{})
 		}
 	},
 	methods: {

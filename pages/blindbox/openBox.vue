@@ -197,26 +197,31 @@
 								</view>
 							</view>
 						</view>
+						<image @click="navToUser" src="../../static/img/bg/adv-Invitation.png" mode="widthFix" class="adv-img" :style="{position: paySuccessResult.rows.length>1?'relative':'absolute'}"></image>
 					</scroll-view>
 					<view>
 						<view class="coupon" v-show="isCouponShow">
 							<view class="text-center fs-40 mb20">可使用抵用券</view>
 							<image class="close-image" @click="isCouponShow = false" src="../../static/img/icon/main-close.png" mode=""></image>
-							<scroll-view scroll-y="true" style="height: calc(100% - 84rpx);">
-								<view class="dflex justify-between  align-center coupon-item " v-for="item in couponData" :key="item.voucherId" @click="radioChange(item)">
-									<view>
-										<view class="coupon-name fs-30">回收抵用券</view>
-										<view class="fs-24">有效期至{{ item.voucherTime }}</view>
-									</view>
-									<view class="dflex align-center">
-										<view class="fc-red ">
-											<view class="fs-50 text-center">{{ item.voucherValue }}</view>
-											<view class="fs-24">最高抵用{{ item.voucherValue }}魔石</view>
+							<scroll-view scroll-y="true" style="height: calc(100% - 194rpx);">
+								<view class="coupon-item " v-for="item in couponData" :key="item.voucherId" @click="radioChange(item)">
+									<view class="dflex justify-between  align-center">
+										<view>
+											<view class="coupon-name fs-30">回收抵用券</view>
+											<view class="fs-24">有效期至{{ item.voucherExpireTime }}</view>
 										</view>
-										<view class="coupon-radio" :class="{ 'radio-active': item.checked }"></view>
+										<view class="dflex align-center">
+											<view class="fc-red ">
+												<view class="fs-50 text-center">{{ item.voucherValue }}</view>
+												<view class="fs-24">最高抵用{{ item.voucherValue }}魔石</view>
+											</view>
+											<view class="coupon-radio" :class="{ 'radio-active': item.checked }"></view>
+										</view>
 									</view>
+									<view class="fs-24" style="color: #8e8e8e;">注：每张抵用券仅限一个盒子使用</view>
 								</view>
 							</scroll-view>
+							<view class="now-btn " style="margin-top:4rpx; width:100%;" @click="isCouponShow=false">确认</view>
 						</view>
 					</view>
 					<view class="operation-btnbox mt20">
@@ -370,6 +375,12 @@ export default {
 		// this.paySuccess("821092637667001")
 	},
 	methods: {
+		navToUser(){
+			uni.setStorageSync('triggerShareUser', true);
+			uni.switchTab({
+				url: '/pages/user/index',
+			});
+		},
 		// 显示抵用券列表
 		handleCouponList(){
 			if(this.couponData.length == 0) return
@@ -756,6 +767,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.adv-img{
+	width: 100%;
+	height: 160rpx;
+	bottom: 0px;
+	left: 0;
+}
 .close-image {
 	position: absolute;
 	right: 20px;
@@ -773,6 +790,7 @@ export default {
 	top: 0;
 	height: 100%;
 	z-index: 1;
+	text-align: left;
 	.coupon-item {
 		padding: 26rpx 30rpx;
 		background-color: #ffffff;
@@ -780,7 +798,7 @@ export default {
 		margin-bottom: 20rpx;
 		.coupon-name {
 			font-weight: bold;
-			padding-bottom: 16rpx;
+			padding-bottom: 10rpx;
 		}
 		.coupon-radio {
 			height: 36rpx;
@@ -965,7 +983,7 @@ export default {
 }
 
 .cabinet-list .goods-image {
-	width: 256rpx;
+	width: 204rpx;
 	height: 256rpx;
 	margin-right: 36rpx;
 	flex-shrink: 0;
@@ -989,7 +1007,7 @@ export default {
 }
 
 .goods-name {
-	width: 374rpx;
+	width: 434rpx;
 	font-size: 30rpx;
 	color: #46464b;
 	line-height: 36rpx;

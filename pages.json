@@ -1040,6 +1040,24 @@
 		    }
 		    
 		}
+		,{
+		    "path" : "pages/blindbox/detailList",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/blindbox/introduction",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/collection/index",
             "style" :                                                                                    
@@ -1058,6 +1076,25 @@
             }
             
         }
+        ,{
+            "path" : "pages/blindbox/detailList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/blindbox/introduction",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+      
     ],
 	"globalStyle": {
 		"mp-alipay": {

@@ -18,7 +18,7 @@
 					</navigator>
 				</view> -->
 				<view class="fs-34 fc-f lh-36 mb20">奖金池</view>
-				<view class="fs-64 lh-80 fc-f mb20">{{prizePoolData.prizePoolTotal}}</view>
+				<view class="fs-64 lh-80 fc-f">{{prizePoolData.prizePoolTotal}}</view>
 				<view class="pr mb38">
 				</view>
 				<!-- <view class="flex-between ac wp100 mb20">
@@ -32,7 +32,7 @@
 						保障金充值
 					</navigator>
 				</view> -->
-				<view class="profit-box mt20">
+				<view class="profit-box">
 					<view class="pl40 dflex ac mb32">
 						<image src="../../static/img/icon/profit-icon@2x.png" mode="" class="m-icon"></image>
 						<view class="fs-32 lh-44 fc-303 fw-b">统计</view>
@@ -44,28 +44,49 @@
 						</view>
 						<view class="profit-info">
 							<view class="fs-24 lh-34 fc-939 mb8">累计直推收益</view>
-							<view class="fs-36 fc-303 lh-44 fw-b">{{info.sumRecProfitMoney}}</view>
+							<view class="fs-36 fc-303 lh-44 fw-b" :style="{opacity:opacityProfit}">{{info.sumRecProfitMoney}}</view>
 						</view>
 					</view>
 					<view class="flex-between ac">
 						<view class="profit-info">
 							<view class="fs-24 lh-34 fc-939 mb8">累计间推收益</view>
-							<view class="fs-38 fc-303 lh-46 fw-b">{{info.sumSecProfitMoney}}</view>
+							<view class="fs-38 fc-303 lh-46 fw-b" :style="{opacity:opacityProfit}"> {{info.sumSecProfitMoney}}</view>
 						</view>
 						<view class="profit-info" @click="gotoBreakRecord">
 							<view class="fs-24 lh-34 fc-939 mb8">累计团队收益</view>
-							<view class="fs-36 fc-303 lh-44 fw-b">{{info.sumTeamProfitMoney}}</view>
+							<view class="fs-36 fc-303 lh-44 fw-b" :style="{opacity:opacityProfit}">{{info.sumTeamProfitMoney}}</view>
 						</view>
 					</view>
 				</view>
-				
+				<view class="profit-box mt20">
+					<view class="pl40 dflex ac mb32">
+						<image src="../../static/img/icon/profit-icon@2x.png" mode="" class="m-icon"></image>
+						<view class="fs-32 lh-44 fc-303 fw-b">推荐收益进度</view>
+					</view>
+					<view class="box-progress">
+						<view class="mb14">
+							<view>直推{{info.resUserCount}}人进度（当前推荐人数{{info.userResUserCount}}）</view>
+							<cmd-progress :percent="info.userResUserCountProgress" stroke-shape="square"></cmd-progress>
+						</view>
+						<view class="mb14">
+							<view>直推加间推{{info.resAndSecondCount}}人进度（当前推荐人数{{info.userResAndSecondCount}}）</view>
+							<cmd-progress :percent="info.userResAndSecondCountProgress" stroke-shape="square"></cmd-progress>
+						</view>
+						<view class="mb14">
+							<view>月流水{{info.teamConsumeMoneySum}}进度（当前月流水{{info.userTeamConsumeMoneySum}}）</view>
+							<cmd-progress :percent="info.userTeamConsumeMoneySumProgress" stroke-shape="square"></cmd-progress>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import cmdProgress from "@/components/cmd-progress/cmd-progress.vue"
 	export default {
+		components: {cmdProgress},
 		data() {
 			return {
 				info:{},
@@ -74,6 +95,7 @@
 				reqSum:0,
 				noteSum:0,
 				prizePoolData:{},
+				opacityProfit:1
 			}
 		},
 		// mounted() {
@@ -140,7 +162,10 @@
 			},
 			initData:function(){
 				uni.$api.getMhUserMoneyCountInfo().then(res =>{
-					this.info = res
+					this.info = res;
+					if(this.info.isEffective == false){
+						this.opacityProfit = 0.2
+					}
 				})
 			},
 			uiClose: function() {
@@ -161,6 +186,9 @@
 </script>
 
 <style>
+	.box-progress{
+		padding:0 20px
+	}
 	.action.middle {
 		position: absolute;
 		left: 0;

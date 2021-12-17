@@ -18,12 +18,12 @@
 			<image class="user-image" :src="user.userPhoto ? user.userPhoto : '/static/img/icon/default-user.png'"></image>
 			<view class="dflex fdc jc-fs">
 				<view class="fs-36 lh-48 fc-f fw-b mb12">
-					{{ user.userCertName || user.userId }}
-					<template v-if="user.userNickName">
+					{{user.userNickName || user.userId}}
+				<!-- 	<template v-if="user.userNickName">
 						({{ user.userNickName }})
-					</template>
+					</template> -->
 				</view>
-				<view class="fs-26 lh-32 fc-f op8">{{ user.mobile }} ></view>
+				<view class="fs-26 lh-32 fc-f op8">{{ phoneNum }} ></view>
 			</view>
 		</view>
 		<view class="container">
@@ -64,16 +64,20 @@
 					<view class="flex-center fdc">
 						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="share">
-							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon mb8"></image>
+							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon "></image>
 							<view class="fs-26 lh-36 fc-f66">我要邀请</view>
 						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP-WEIXIN -->
 						<view @click="shareUser">
-							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon mb8"></image>
+							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon"></image>
 							<view class="fs-26 lh-36 fc-f66">我要邀请</view>
 						</view>
 						<!-- #endif -->
+					</view>
+					<view class="flex-center fdc">
+						<image src="../../static/img/svg/user-poster.svg" mode="" class="invite-icon mb8"></image>
+						<view class="fs-26 lh-36 fc-f66" @tap="posterTap">邀请海报</view>
 					</view>
 					<view class="flex-center fdc" @tap="toExpandPage(0)">
 						<view class="fs-36 lh-44 fc-303 fw-b mt6 mb16">{{ user.userCount.recUserCount || 0 }}</view>
@@ -143,13 +147,17 @@
 			<!-- <view style="height: (50px + env(safe-area-inset-bottom) / 2);min-height: 100rpx;"></view> -->
 			<uni-sign-in ref="signIn" :signInRes="signInRes" :tips="signInTips"></uni-sign-in>
 		</view>
+		<generatePoster ref='posterRef'></generatePoster>
 	</view>
 </template>
 
 <script>
 import tabbar from 'pages/component/tabbar.vue';
-
+import generatePoster from 'pages/component/generatePoster'
 export default {
+	components: {
+		generatePoster
+	},
 	data() {
 		return {
 			old: 0,
@@ -184,7 +192,8 @@ export default {
 			},
 			signInTips: '',
 			todaySignIn: false,
-			voucherCount: 0
+			voucherCount: 0,
+			phoneNum:'',
 		};
 	},
 	onShareAppMessage() {
@@ -233,6 +242,10 @@ export default {
 		
 	},
 	methods: {
+		// 邀请海报
+		posterTap(){
+			this.$refs.posterRef.buildPoster()
+		},
 		// 获取抵用券
 		getVoucherByUser() {
 			uni.$api
@@ -349,6 +362,7 @@ export default {
 						waitDealBalanceShareShow
 					} = res.data;
 					this.user = user;
+					this.phoneNum = user.mobile.substring(0,3) + '****' + user.mobile.substring(7)
 					this.money = money;
 					this.money.map(e => {
 						if (Object.prototype.toString.call(e.money) === '[object Number]') {

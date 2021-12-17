@@ -7,7 +7,7 @@
 		<view class="container">
 			<view class="toker-achievements flex-center">
 				<view class="flex-center fdc wp50">
-					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{info.recUserCount}}</view>
+					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{level==1?info.secondRecUserCount:info.recUserCount}}</view>
 					<view class="fs-24 lh-34 fc-939">{{level==1?'间推':'直推'}}人员</view>
 				</view>
 				<view class="toker-line"></view>
@@ -32,7 +32,7 @@
 							<th>姓名</th>
 							<th>成为时间</th>
 							<th>消费额</th>
-							<th>直推数</th>
+							<th v-if='level==0'>直推数</th>
 						</tr>
 						<template v-for="(item, index) in info.children">
 							<tr @click="gotoDetail" :data-user-id="item.userId" :data-level="1">
@@ -40,8 +40,8 @@
 								<td class="bt2 bb2"></td>
 								<!-- <td class="bt2 bb2">2021/03/23</td> -->
 								<td class="bt2 bb2">{{item.recommendUserTime | formatDateYMD}}</td>
-								<td class="bt2 bb2">{{item.userConsumeMoneySum}}</td>
-								<td class="bt2 bb2">{{item.recUserCount}} <text class="cuIcon-right ml8 mr-24"></text></td>
+								<td class="bt2 bb2" >{{item.userConsumeMoneySum}} <text v-if='level==1' class="cuIcon-right ml8 mr-24" style="color: #000000;"></text></td>
+								<td class="bt2 bb2" v-if='level==0'>{{item.recUserCount}} <text class="cuIcon-right ml8 mr-24" style="color: #000000;"></text></td>
 							</tr>
 							<tr v-if="item.down" v-for="subItem in item.children"  @click="gotoDetail" :data-user-id="subItem.userId" :data-level="2">
 								<td></td>

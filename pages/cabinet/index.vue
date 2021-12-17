@@ -96,21 +96,25 @@
 						可使用抵用券
 					</view>
 					<image class="close-image" @click="isCouponShow=false" src="../../static/img/icon/main-close.png" mode=""></image>
-					<scroll-view scroll-y="true" style="height: calc(100% - 84rpx);">
-						<view class="dflex justify-between  align-center coupon-item " v-for="item in couponData" :key='item.voucherId' @click="radioChange(item)">
-							<view>
-								<view class="coupon-name fs-30">回收抵用券</view>
-								<view class="fs-24">有效期至{{item.voucherTime}}</view>
-							</view>
-							<view class="dflex align-center">
-								<view class="fc-red ">
-									<view class="fs-50 text-center">{{item.voucherValue}}</view>
-									<view class="fs-24">最高抵用{{item.voucherValue}}魔石</view>
+					<scroll-view scroll-y="true" style="height: calc(100% - 154rpx);">
+						<view class=" coupon-item " v-for="item in couponData" :key='item.voucherId' @click="radioChange(item)">
+							<view class="dflex justify-between  align-center">
+								<view>
+									<view class="coupon-name fs-30">回收抵用券</view>
+									<view class="fs-24">有效期至{{item.voucherExpireTime}}</view>
 								</view>
-								<view class="coupon-radio" :class="{'radio-active':item.checked}" ></view>
+								<view class="dflex align-center">
+									<view class="fc-red ">
+										<view class="fs-50 text-center">{{item.voucherValue}}</view>
+										<view class="fs-24">最高抵用{{item.voucherValue}}魔石</view>
+									</view>
+									<view class="coupon-radio" :class="{'radio-active':item.checked}" ></view>
+								</view>
 							</view>
+							<view class="fs-24" style="color: #8e8e8e;">注：每张抵用券仅限一个盒子使用</view>
 						</view>
 					</scroll-view>
+					<view class="yellow-btn" style="margin: auto; width: 448rpx;" @click="isCouponShow=false">确认</view>
 				</view>
 			</view>
 		</uni-popup>
@@ -380,8 +384,9 @@
 			},
 			// 打开回收popup
 			onRecycle(item){
+				console.log(item);
 				this.isCouponShow = false;
-				if(item.goodsItemPrice > item.goodsItemRecyclePrice){
+				if(item.gameBoxGoodsPrice > item.goodsItemRecyclePrice){
 					this.couponData = this.voucherList;
 				}else{
 					this.couponData = [];
@@ -483,7 +488,7 @@
 		margin-bottom: 20rpx;
 		.coupon-name{
 			font-weight: bold;
-			padding-bottom: 16rpx;
+			padding-bottom: 10rpx;
 		}
 		.coupon-radio{
 			height: 36rpx;
@@ -656,6 +661,7 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .border-btn {
 	width: 246rpx;
 	height: 70rpx;

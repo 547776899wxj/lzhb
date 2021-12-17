@@ -212,14 +212,22 @@
 				this.show = false
 			},
 			onCopyToClipboard(data){
-				uni.setClipboardData({
-					data,
-					success: function() {
-						uni.showToast({
-							title: "链接已复制,请在浏览器中粘贴访问",
-						})
-					}
-				})
+				// #ifndef APP-PLUS
+					uni.setClipboardData({
+						data,
+						showToast:false,
+						success: function() {
+							uni.showModal({
+								title: '提示',
+								content: '链接已复制,请在浏览器中粘贴访问',
+								showCancel: false,
+							});
+						}
+					})
+				// #endif
+				// #ifdef APP-PLUS
+					plus.runtime.openURL(data)
+				// #endif
 			},
 		}
 	}
