@@ -38,7 +38,6 @@
 							<tr @click="gotoDetail" :data-user-id="item.userId" :data-level="1">
 								<td class="bt2 bb2" @click.stop="onChangeExtand(index)"><view class="dflex ac h88">{{item.userCertName||item.mobile}}<text :class="{'cuIcon-triangledownfill':item.down===true, 'cuIcon-triangleupfill': !(item.down===true)}"></text></view></td>
 								<td class="bt2 bb2"></td>
-								<!-- <td class="bt2 bb2">2021/03/23</td> -->
 								<td class="bt2 bb2">{{item.recommendUserTime | formatDateYMD}}</td>
 								<td class="bt2 bb2" >{{item.userConsumeMoneySum}} <text v-if='level==1' class="cuIcon-right ml8 mr-24" style="color: #000000;"></text></td>
 								<td class="bt2 bb2" v-if='level==0'>{{item.recUserCount}} <text class="cuIcon-right ml8 mr-24" style="color: #000000;"></text></td>
@@ -46,7 +45,6 @@
 							<tr v-if="item.down" v-for="subItem in item.children"  @click="gotoDetail" :data-user-id="subItem.userId" :data-level="2">
 								<td></td>
 								<td>{{subItem.userCertName || subItem.mobile}}</td>
-								<!-- <td>2021/03/23</td> -->
 								<td>{{subItem.recommendUserTime  | formatDateYMD}}</td>
 								<td>{{subItem.userConsumeMoneySum}}</td>
 								<td>{{subItem.recUserCount}} <text class="cuIcon-right ml8 mr-24"></text></td>
@@ -115,6 +113,9 @@
 </script>
 
 <style>
+.container{
+	padding: 0;
+}	
 page {
 	background-color: #fff;
 }
@@ -132,7 +133,7 @@ page {
 	height: 56rpx;
 }
 .manage-box {
-	padding: 16rpx 32rpx;
+	padding: 16rpx 0;
 }
 table {
 	width: 100%;
