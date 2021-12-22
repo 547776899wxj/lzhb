@@ -12,7 +12,7 @@
 						<view class="">
 							<view class="goods-name mb18">{{item.gameBoxName}}</view>
 							<view class="dflex ac mb18">
-								<image :src="item.userPhoto?item.userPhoto:'/static/img/icon/default-user.png'" class="user-head"></image>
+								<image :src="item.userPhoto?item.userPhoto: domainStatic+'/img/icon/default-user.png'" class="user-head"></image>
 								<view class="ml8 mr8 fs-24 lh-24 fc-626">{{item.userNickName?item.userNickName:item.mobile}}开出</view>
 								<view class="fs-28 lh-28 fc-ff4 goods-length">{{item.goodsTitle}}</view>
 							</view>
@@ -47,6 +47,7 @@
 				},
 				newOpenBoxLoading:false,
 				CustomBar: this.CustomBar,
+				domainStatic:this.domainStatic
 			}
 		},
 		components: {

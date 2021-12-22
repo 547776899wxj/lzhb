@@ -154,12 +154,13 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wxe05a2a929011ad32",
+        "appid" : "wx20b55e520ce32bf3",
         "setting" : {
-            "urlCheck" : false,
+            "urlCheck" : true,
             "es6" : false,
             "minified" : true
-        }
+        },
+        "permission" : {}
     },
     "h5" : {
         "title" : "盒变空间V1.0",

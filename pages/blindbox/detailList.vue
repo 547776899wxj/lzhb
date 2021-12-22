@@ -11,7 +11,6 @@
 			<view class="content">
 				<view class="dflex align-center">
 					<view class="title">
-						<!-- <image class="title-img" src="../../static/img/images/detail-title.png" mode=""></image> -->
 						<text class="pl20">{{partitionTitle}}</text>
 					</view>
 					<view class="top-tip">Magic stone zone</view>
@@ -20,7 +19,9 @@
 					<view class="goods-item dflex" v-for="(item,index) in gameboxList" :key='item.goods.goodsId' @click="gotoBoxDetail(item.goods.goodsId)">
 						<image class="goods-img" :src="item.goods.goodsImage" mode=""></image>
 						<view class="dflex flex-direction justify-between">
-							<image class="info-img" v-for="(item,index) in item.itemShow.slice(0,2)" :key='index' :src="item.goodsImage" mode=""></image>
+							<view  v-for="(item,index) in item.itemShow" :key='index' >
+								<image class="info-img":src="item.goodsImage" mode=""></image>
+							</view>
 						</view>
 						<view class="goods-info">
 							<view class="info-title">
@@ -56,9 +57,12 @@
 				partitionId:0,
 				gameboxList:[],
 				containerHeight: '100%',
+				domainStatic:this.domainStatic,
+				partitionTitle:''
 			}
 		},
 		onLoad(e) {
+			console.log(e);
 			this.partitionId = e.id;
 			this.partitionTitle = e.title;
 			this.containerHeight = `calc(100% - ${this.CustomBar + 8}px)` ;
@@ -79,6 +83,9 @@
 					partitionId: this.partitionId
 				}).then(res => {
 					let gameboxList = res.goodsList;
+					gameboxList.forEach(item =>{
+						item.itemShow = item.itemShow.slice(0,2);
+					})
 					this.gameboxList = this.gameboxList.concat(gameboxList);
 					if(gameboxList.length < this.limit){
 						this.isReachBottom = false;
@@ -123,7 +130,7 @@
 				height: 84rpx;
 				line-height: 84rpx;
 				// padding: 19rpx 19rpx 30rpx 19rpx;
-				background: url(../../static/img/images/detail-title.png) no-repeat;
+				background: url(https://boxapp.citytp.com/static/img/images/detail-title.png) no-repeat;
 				background-size: 300rpx 84rpx;
 				font-weight: 600;
 				

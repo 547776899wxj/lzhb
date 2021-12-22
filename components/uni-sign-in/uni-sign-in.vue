@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-popup ref="popup" type="center">
-			<image class="background-img" src="../../static/img/bg/sign-bg.png" mode="width">
+			<image class="background-img" :src="domainStatic+'/img/bg/sign-bg.png'" mode="width">
 			</image>
 			<view class="content">
 				<view class="main">
@@ -50,6 +50,7 @@
 				total: 0,
 				scores: 0,
 				weekdays: [1, 2, 3, 4, 5, 6, 7],
+				domainStatic:this.domainStatic
 				// signInRes: {
 				// 	days: [],
 				// 	n: 0

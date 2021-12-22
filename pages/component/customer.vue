@@ -11,7 +11,7 @@
 				<view class="padding-xl">
 					<view class="flex-center fdc">
 						<text class="fs-28 fc-606 mb24">请关注公众号"城市同频"</text>
-						<image src="../../static/img/images/gzh.jpg" mode="" class="gzh-pic"></image>
+						<image :src="domainStatic+'/img/images/gzh.jpg'" mode="" class="gzh-pic"></image>
 					</view>
 				</view>
 				<!-- <view class="cu-bar bg-white justify-end">
@@ -36,7 +36,8 @@
 		data() {
 			return {
 				phone:"13459363632",
-				alert:this.show
+				alert:this.show,
+				domainStatic:this.domainStatic,
 			}
 		},
 		created() {

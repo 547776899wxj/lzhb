@@ -22,7 +22,7 @@
 					<view class="address-box" @click="showAddressList()" v-show="tabIndex===1">
 						<view class="flex-between ai-fs mb12">
 							<view class="address">{{orderAddress.addressAllName ||'请选择收货地址'}}</view>
-							<image src="../../static/img/icon/black-gd.png" class="more-icon mt10"></image>
+							<image :src="domainStatic+'/img/icon/black-gd.png'" class="more-icon mt10"></image>
 						</view>
 						<view class="dflex ac">
 							<view class="fs-28 lh-28 fc-464">{{orderAddress.addressContacts}} {{orderAddress.addressMobile}}</view>
@@ -51,7 +51,7 @@
 						<view class="fs-26 lh-26 fc-464">备注</view>
 						<view class="flex justify-end">
 							<view>{{userMessage}}</view>
-							<image src="/static/img/icon/black-gd.png" mode="" class="more-icon"></image>
+							<image :src="domainStatic+'/img/icon/black-gd.png'" mode="" class="more-icon"></image>
 						</view>
 					</view>
 					<view class="operation-btnbox mt20">
@@ -102,6 +102,7 @@
 		},
 		data() {
 			return {
+				domainStatic:this.domainStatic,
 				addressList:[],
 				addressId:"",
 				tabIndex:0,

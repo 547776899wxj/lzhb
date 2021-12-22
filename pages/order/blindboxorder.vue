@@ -5,7 +5,7 @@
 		</cu-custom>
 		<view class="container">
 			<view class="order-list">
-				<image src="../../static/img/images/blindbox.png" mode="widthFix" class="blindbox-pic"></image>
+				<image :src="domainStatic+'/img/images/blindbox.png'" mode="widthFix" class="blindbox-pic"></image>
 				<view class="blindbox-info">
 					<view class="fs-30 lh-30 fc-3 fw-b">{{info.goodsTitle}}</view>
 					<view class="fs-34 lh-34 fc-fb2 fw-b dflex ai-fe"><view class="fs-26 lh-26 mb2">¥</view>{{info.gameBoxPrice}}</view>
@@ -13,11 +13,11 @@
 						<view class="fs-24 lh-24 fc-9 dflex ai-fe">库存：{{info.gameBoxStock}}</view>
 					</view>
 					<view class="operation-num">
-						<image src="../../static/img/icon/delete.png" mode="" class="operation-btn" @click="onSubCount"></image>
+						<image :src="domainStatic+'/img/icon/delete.png'" mode="" class="operation-btn" @click="onSubCount"></image>
 						<input type="number"  maxlength="5" v-model="form.count" 
 						class="fs-28 lh-28 fc-3 tc order-num" 
 						@blur="onInputCount"  />
-						<image src="../../static/img/icon/add.png" mode="" class="operation-btn" @click="onAddCount"></image>
+						<image :src="domainStatic+'/img/icon/add.png'" mode="" class="operation-btn" @click="onAddCount"></image>
 					</view>
 				</view>
 			</view>
@@ -59,7 +59,7 @@
 		
 				</view>
 				<view class="wait-pay lh-48 fs-28 fc-303 mb80">
-					<image src="../../static/img/images/waitpay@2x.png" mode="widthFix" class="mb28"></image>
+					<image :src="domainStatic+'/img/images/waitpay@2x.png'" mode="widthFix" class="mb28"></image>
 					<view class="fs-30 lh-30 fc-9">正在支付中……</view>
 				</view>
 				<view class="padding-lg pt0 cu-bar bg-white dflex jc-c">
@@ -88,6 +88,7 @@
 				payMoney: 0,
 				orderId: '',
 				countInputStr: '',
+				domainStatic:this.domainStatic,
 			}
 		},
 		onShow() {

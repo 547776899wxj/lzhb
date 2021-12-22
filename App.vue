@@ -312,7 +312,6 @@ export default {
 @import 'styles/margin.css';
 @import 'styles/padding.css';
 @import 'styles/number-font.css';
-
 uni-tabbar .uni-tabbar__reddot {
 	background-color: #ff411c;
 }

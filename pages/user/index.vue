@@ -1,25 +1,20 @@
 <template>
 	<view>
-		<image src="/static/img/bg/user-bg.png" class="user-index-bg" mode="widthFix"></image>
+		<image :src="domainStatic + '/img/bg/user-bg.png'" class="user-index-bg" mode="widthFix"></image>
 		<view style="height: 60rpx;"></view>
 		<view class="cu-bar">
-			<view class="action pr">
-				<!-- <navigator url="/pages/user/message">
-					<image src="/static/img/icon/message-icon@2x.png" mode="" class="m-icon"></image>
-					<view class="new-message" v-if="notReadMsgNum > 0"></view>
-				</navigator> -->
-			</view>
+			<view class="action pr"></view>
 			<view class="action">
 				<navigator url="/pages/user/assets/recharge" class="recharge-btn">充值</navigator>
-				<navigator url="/pages/user/set"><image src="/static/img/icon/set-icon@2x.png" mode="" class="m-icon"></image></navigator>
+				<navigator url="/pages/user/set"><image :src="domainStatic + '/img/icon/set-icon@2x.png'" mode="" class="m-icon"></image></navigator>
 			</view>
 		</view>
-		<view class="user-info dflex ac pt0 mt-12">
-			<image class="user-image" :src="user.userPhoto ? user.userPhoto : '/static/img/icon/default-user.png'"></image>
+		<view class="user-info dflex ac  mt-12">
+			<image class="user-image" :src="user.userPhoto ? user.userPhoto : domainStatic + '/img/icon/default-user.png'"></image>
 			<view class="dflex fdc jc-fs">
 				<view class="fs-36 lh-48 fc-f fw-b mb12">
-					{{user.userNickName || user.userId}}
-				<!-- 	<template v-if="user.userNickName">
+					{{ user.userNickName || user.userId }}
+					<!-- 	<template v-if="user.userNickName">
 						({{ user.userNickName }})
 					</template> -->
 				</view>
@@ -30,10 +25,10 @@
 			<view class="user-info-list" v-if="scoreMoney.length > 0">
 				<view class="user-info-title" @tap="toAssets()">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/user-info-icon4@2x.png" mode="" class="m-icon mr20"></image>
+						<image :src="domainStatic + '/img/icon/user-info-icon4@2x.png'" mode="" class="m-icon mr20"></image>
 						<text class="fs-28 lh-28 fc-303">资产</text>
 					</view>
-					<image src="../../static/img/icon/more-icon.png" mode="" class="m-icon"></image>
+					<image :src="domainStatic + '/img/icon/more-icon.png'" mode="" class="m-icon"></image>
 				</view>
 				<view class="user-info-data">
 					<view class="flex-center fdc" @tap="toAssets()" v-for="item in scoreMoney">
@@ -55,29 +50,29 @@
 			<view class="user-info-list">
 				<view class="user-info-title" @tap="toExpandPage()">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/user-info-icon1@2x.png" mode="" class="m-icon mr20"></image>
+						<image :src="domainStatic + '/img/icon/user-info-icon1@2x.png'" mode="" class="m-icon mr20"></image>
 						<text class="fs-28 lh-28 fc-303">拓客管理</text>
 					</view>
-					<image src="../../static/img/icon/more-icon.png" mode="widthFix" class="m-icon"></image>
+					<image :src="domainStatic + '/img/icon/more-icon.png'" mode="widthFix" class="m-icon"></image>
 				</view>
 				<view class="user-info-data">
 					<view class="flex-center fdc">
 						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="share">
-							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon "></image>
+							<image :src="domainStatic + '/img/icon/invite-icon.png'" mode="" class="invite-icon "></image>
 							<view class="fs-26 lh-36 fc-f66">我要邀请</view>
 						</button>
 						<!-- #endif -->
 						<!-- #ifndef MP-WEIXIN -->
 						<view @click="shareUser">
-							<image src="../../static/img/icon/invite-icon.png" mode="" class="invite-icon"></image>
+							<image :src="domainStatic + '/img/icon/invite-icon.png'" mode="" class="invite-icon"></image>
 							<view class="fs-26 lh-36 fc-f66">我要邀请</view>
 						</view>
 						<!-- #endif -->
 					</view>
-					<view class="flex-center fdc">
-						<image src="../../static/img/svg/user-poster.svg" mode="" class="invite-icon mb8"></image>
-						<view class="fs-26 lh-36 fc-f66" @tap="posterTap">邀请海报</view>
+					<view class="flex-center fdc" @tap="posterTap">
+						<image :src="domainStatic + '/img/svg/user-poster.svg'" mode="" class="invite-icon mb8"></image>
+						<view class="fs-26 lh-36 fc-f66">邀请海报</view>
 					</view>
 					<view class="flex-center fdc" @tap="toExpandPage(0)">
 						<view class="fs-36 lh-44 fc-303 fw-b mt6 mb16">{{ user.userCount.recUserCount || 0 }}</view>
@@ -92,10 +87,10 @@
 			<view class="user-info-list">
 				<view class="user-info-title" @tap="toOrder()">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/user-info-icon5@2x.png" mode="" class="m-icon mr20"></image>
+						<image :src="domainStatic + '/img/icon/user-info-icon5@2x.png'" mode="" class="m-icon mr20"></image>
 						<text class="fs-32 lh-32 fc-303 fw-b">我的订单</text>
 					</view>
-					<image src="../../static/img/icon/more-icon.png" mode="" class="m-icon"></image>
+					<image :src="domainStatic + '/img/icon/more-icon.png'" mode="" class="m-icon"></image>
 				</view>
 				<view class="user-info-data">
 					<view class="flex-center fdc" @tap="toOrder('?orderStatus=0')">
@@ -120,43 +115,30 @@
 			<view class="user-info-list user-info-data pt24 pb24">
 				<navigator url="/pages/user/address">
 					<view class="flex-center fdc">
-						<image src="/static/img/icon/user-index-icon1@2x.png" mode="" class="m-icon mb16"></image>
+						<image :src="domainStatic + '/img/icon/user-index-icon1@2x.png'" mode="" class="m-icon mb16"></image>
 						<view class="fs-24 lh-34 fc-303">收货地址</view>
 					</view>
 				</navigator>
 				<navigator url="/pages/info/servicecenter/servicecenter">
 					<view class="flex-center fdc">
-						<image src="/static/img/icon/user-index-icon2@2x.png" mode="" class="m-icon mb16"></image>
+						<image :src="domainStatic + '/img/icon/user-index-icon2@2x.png'" mode="" class="m-icon mb16"></image>
 						<view class="fs-24 lh-34 fc-303">服务中心</view>
 					</view>
 				</navigator>
-				<!-- <navigator url="/pages/user/about">
-					<view class="flex-center fdc">
-						<image src="/static/img/icon/user-index-icon3@2x.png" mode="" class="m-icon mb16"></image>
-						<view class="fs-24 lh-34 fc-303">关于我们</view>
-					</view>
-				</navigator> -->
-				<!-- <navigator url="/pages/user/blindbox/couponcenter">
-					<view class="flex-center fdc">
-						<image src="/static/img/icon/user-index-icon4@2x.png" mode="" class="m-icon mb16"></image>
-						<view class="fs-24 lh-34 fc-303">卡券中心</view>
-					</view>
-				</navigator> -->
 			</view>
 			<!-- tabbar 占位 -->
-			<!-- <view style="height: (50px + env(safe-area-inset-bottom) / 2);min-height: 100rpx;"></view> -->
 			<uni-sign-in ref="signIn" :signInRes="signInRes" :tips="signInTips"></uni-sign-in>
 		</view>
-		<generatePoster ref='posterRef'></generatePoster>
+		<generatePoster ref="posterRef"></generatePoster>
 	</view>
 </template>
 
 <script>
 import tabbar from 'pages/component/tabbar.vue';
-import generatePoster from 'pages/component/generatePoster'
+import generatePoster from 'pages/component/generatePoster';
 export default {
 	components: {
-		generatePoster
+		generatePoster,
 	},
 	data() {
 		return {
@@ -193,16 +175,18 @@ export default {
 			signInTips: '',
 			todaySignIn: false,
 			voucherCount: 0,
-			phoneNum:'',
+			phoneNum: '',
+			domainStatic: this.domainStatic,
 		};
 	},
 	onShareAppMessage() {
 		var shareUrl = this.user.userShareMpWxUrl;
 		var title = this.user.userShareContent;
 		var imageUrl = this.user.userShareMpWxImageUrl;
+		console.log(shareUrl);
 		return {
 			title,
-			path: shareUrl,
+			path: `/pages/login/invite?id=${this.user.userId}&mobile=${this.user.mobile}`,
 			imageUrl
 		};
 	},
@@ -213,7 +197,6 @@ export default {
 				mask: false
 			});
 		}
-		
 	},
 	mounted: function() {
 		uni.$utils.blankScreenWatchAndRelunch(this, '#containerId', '/pages/user/index');
@@ -227,33 +210,31 @@ export default {
 			this.getUserSignIn();
 			this.getVoucherByUser();
 			// #ifndef MP-WEIXIN
-			setTimeout(() =>{
-				if(uni.getStorageSync('triggerShareUser')){
+			setTimeout(() => {
+				if (uni.getStorageSync('triggerShareUser')) {
 					this.shareUser();
-					uni.setStorageSync('triggerShareUser',false);
+					uni.setStorageSync('triggerShareUser', false);
 				}
-			},500)
+			}, 500);
 			// #endif
 		}
 		uni.$utils.setTabBarOrderNum();
 		uni.$api.getOnSaleGameBoxCount().then(res => {
 			this.onSaleGameBoxCount = res.count || 0;
 		});
-		
 	},
 	methods: {
 		// 邀请海报
-		posterTap(){
-			this.$refs.posterRef.buildPoster()
+		posterTap() {
+			this.$refs.posterRef.buildPoster();
 		},
 		// 获取抵用券
 		getVoucherByUser() {
 			uni.$api
-				.getVoucherByUser({voucherState:2})
+				.getVoucherByUser({ voucherState: 2 })
 				.then(res => {
 					this.voucherCount = res.count;
 					uni.hideLoading();
-					
 				})
 				.catch(res => {
 					uni.hideLoading();
@@ -289,7 +270,7 @@ export default {
 					this.signInRes.n = this.signInRes.n + 1;
 					this.$refs.signIn.open();
 					this.todaySignIn = true;
-					if(this.signInRes.n >=7) {
+					if (this.signInRes.n >= 7) {
 						this.getVoucherByUser();
 					}
 				})
@@ -362,7 +343,7 @@ export default {
 						waitDealBalanceShareShow
 					} = res.data;
 					this.user = user;
-					this.phoneNum = user.mobile.substring(0,3) + '****' + user.mobile.substring(7)
+					this.phoneNum = user.mobile.substring(0, 3) + '****' + user.mobile.substring(7);
 					this.money = money;
 					this.money.map(e => {
 						if (Object.prototype.toString.call(e.money) === '[object Number]') {
@@ -400,7 +381,7 @@ export default {
 				href: shareUrl,
 				summary: desc || '',
 				scene: 'WXSceneSession', //场景值 WXSceneSession 聊天界面 WXSenceTimeline 分享到朋友圈 WXSceneFavorite 分享到微信收藏
-				imageUrl: '/static/logo.png',
+				imageUrl: this.domainStatic + '/logo.png',
 				success(res) {
 					console.log('分享成功:' + JSON.stringify(res));
 				},
@@ -419,7 +400,19 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+	/* #ifdef MP-WEIXIN */
+	.cu-bar {
+		box-shadow: none;
+		top: 130rpx;
+		bottom: auto;
+	}
+	.user-info{
+		padding-top: 70rpx !important;
+		height: 230rpx;
+	}
+	/* #endif */
+
 .fc-f66 {
 	color: #f6632d;
 }
@@ -493,7 +486,7 @@ export default {
 	width: 100%;
 	height: 120rpx;
 	padding: 0 44rpx;
-	background: url(../../static/img/bg/user-invite-bg@2x.png) no-repeat;
+	background: url(https://boxapp.citytp.com/static/img/bg/user-invite-bg@2x.png) no-repeat;
 	background-size: 100% 100%;
 }
 

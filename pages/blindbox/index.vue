@@ -9,7 +9,7 @@
 		<view class="user-info">
 			<view class="flex-between ac">
 				<view class="dflex ac">
-					<image :src=" userInfo.userPhoto ||'../../static/img/icon/default-user.png'" class="user-head"></image>
+					<image :src=" userInfo.userPhoto || domainStatic+'/img/icon/default-user.png'" class="user-head"></image>
 					<view class="dflex fdc jc-fs">
 						<view class="fs-26 lh-26 fc-464 mb8">{{userInfo.userNickName || userInfo.mobile || ''}}</view>
 						<view class="fs-26 lh-26 fc-464">剩余: <text class="fc-ff0 fw-b">{{userInfo.money}}</text>魔石</view>
@@ -37,7 +37,7 @@
 			</view>
 			<view class="openbox wrapper" v-for="item,index in gameboxList">
 				<view class="dflex ac mb20">
-					<image src="../../static/img/icon/openbox-icon@2x.png" mode="" class="openbox-icon"></image>
+					<image :src="domainStatic+'/img/icon/openbox-icon@2x.png'" mode="" class="openbox-icon"></image>
 					<view class="fs-28 lh-28 fc-464 fw-b">{{item.goods.goodsTitle}}</view>
 					<image :src="item.goods.goodsDescIcon" class="openbox-ident" v-if="item.goods.goodsDescIcon"></image>
 				</view>
@@ -76,7 +76,7 @@
 											<view class="fs-26 lh-36 fc-464 user-length">抽中了{{openItem.goodsTitle}}</view>
 										</view>
 										<view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
-											<image src="../../static/img/icon/default-user.png" class="winner-user mr12"></image>
+											<image :src="domainStatic+'/img/icon/default-user.png'" class="winner-user mr12"></image>
 											<view class="fs-26 lh-26 fc-ff0">回收了{{openItem.goodsItemRecyclePrice}}魔石</view>
 										</view>
 									</view>
@@ -149,7 +149,7 @@
 							<view class="goods-info dflex ac">
 								<view @click="onSelectBoxItem(index)">
 									<view class="goods-radio" v-if="!item.checked"></view>
-									<image src="../../static/img/icon/goods-radio@2x.png" class="goods-radio checked" v-else></image>
+									<image :src="domainStatic+'/img/icon/goods-radio@2x.png'" class="goods-radio checked" v-else></image>
 								</view>
 								<image :src="item.goodsImage" mode="" class="goods-image"></image>
 								<view class="wp100">
@@ -175,7 +175,7 @@
 							<view class="text-center fs-40 mb20">
 								可使用抵用券
 							</view>
-							<image class="close-image" @click="isCouponShow=false" src="../../static/img/icon/main-close.png" mode=""></image>
+							<image class="close-image" @click="isCouponShow=false" :src="domainStatic+'/img/icon/main-close.png'" mode=""></image>
 							<scroll-view scroll-y="true" style="height: calc(100% - 84rpx);">
 								<view class="dflex justify-between  align-center coupon-item " v-for="item in couponData" :key='item.voucherId' @click="radioChange(item)">
 									<view>
@@ -200,12 +200,12 @@
 								<text v-if="couponAmount!=0" class="fc-red">+{{couponAmount}}魔石</text>
 								<text v-else-if="couponData.length>0" class="fc-red">可用{{couponData.length}}张</text>
 								<text v-else>暂无可用</text>
-								<image class="more-icon" src="../../static/img/icon/more-icon.png" mode=""></image>
+								<image class="more-icon" :src="domainStatic+'/img/icon/more-icon.png'" mode=""></image>
 							</view>
 						</view>
 						<view class="change-box mb20" @click="onSelectBoxItemAll">
 							<view class="change-btn" v-if="!paySuccessResult.isSelectAll"></view>
-							<image src="../../static/img/icon/goods-radio@2x.png" class="change-btn cur" v-else></image>
+							<image :src="domainStatic+'/img/icon/goods-radio@2x.png'" class="change-btn cur" v-else></image>
 							<view class="fs-30 lh-30 fc-464">全选</view>
 						</view>
 						<view class="recovery-btn mb20" @click="onRecycle">7折回收 <text class="fs-36 lh-36 fc-f fw-b ml10 mr10">{{ totalRecoveryPrice }}</text> 魔石</view>
@@ -261,6 +261,7 @@
 				isReachBottom:true,
 				listLoading:true,
 				partitionId:0,
+				domainStatic:this.domainStatic
 			}
 		},
 		onReachBottom(){
@@ -620,7 +621,7 @@
 				align-items: center;
 				&.radio-active{
 					border: none;
-					background: url(../../static/img/icon/goods-radio@2x.png);
+					background: url(https://boxapp.citytp.com/static/img/icon/goods-radio@2x.png);
 					background-size: 36rpx ;
 					// &::before{
 					// 	font: normal normal normal 14px/1 uni;

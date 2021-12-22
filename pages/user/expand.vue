@@ -26,7 +26,57 @@
 					</view>
 				</view>
 				<view class="">
-					<table >
+					<uni-table  class="uni-table" emptyText="暂无更多数据" >
+					    <uni-tr>
+					        <uni-th width='80' align="center" class="fs-24 table-th">姓名</uni-th>
+					        <uni-th width='80' align="center" class="fs-24 table-th">成为时间</uni-th>
+					        <uni-th width='80' align="center" class="fs-24 table-th">消费额</uni-th>
+					        <uni-th width='80' align="center" class="fs-24 table-th" v-if='level==0'>直推数</uni-th>
+					    </uni-tr>
+						<template  v-for="(item,index) in info.children" >
+							<uni-tr :key='item.userId'>
+								<uni-td align="center" class="fs-24">
+									<view @click="onChangeExtand(index)">
+										{{item.userCertName||item.mobile}}
+										<text :class="{'cuIcon-triangledownfill':item.down===true, 'cuIcon-triangleupfill': !(item.down===true)}"></text>
+									</view>
+								</uni-td>
+								<uni-td align="center" class="fs-24">
+									<view>
+										{{item.recommendUserTime | formatDateYMD}}
+									</view>
+								</uni-td>
+								<uni-td align="center" >
+									<view class="fs-24 fc-ff0">
+										{{item.userConsumeMoneySum}}
+									</view>
+								</uni-td>
+								<uni-td  align="center" class="fs-24" v-if='level==0'>
+									<view @click="gotoDetail(item,1)">
+										{{item.recUserCount}}
+										 <text class="cuIcon-right ml8 mr-24"></text>
+									</view>
+								</uni-td>
+							</uni-tr>
+							<template v-if="item.down">
+								<uni-tr v-for="(child,childIndex) in item.children" :key='child.userId'>
+									<uni-td align="right" class="fs-24">
+										{{child.userCertName||child.mobile}}
+									</uni-td>
+									<uni-td align="right" class="fs-24">{{child.recommendUserTime | formatDateYMD}}</uni-td>
+									<uni-td align="right">
+										<view class="fc-ff0 fs-24 ">
+											{{child.userConsumeMoneySum}}
+										</view>
+									</uni-td>
+									<uni-td  align="right" class="fs-24">
+										
+									</uni-td>
+								</uni-tr>
+							</template>
+						</template>
+					</uni-table>
+					<!-- <table >
 						<tr>
 							<th></th>
 							<th>姓名</th>
@@ -50,7 +100,7 @@
 								<td>{{subItem.recUserCount}} <text class="cuIcon-right ml8 mr-24"></text></td>
 							</tr>
 						</template>
-					</table>
+					</table> -->
 				</view>
 			</view>
 		</view>
@@ -100,19 +150,22 @@
 				})
 				this.$forceUpdate()
 			},
-			gotoDetail(value){
-				console.log('gotoDetail',value)
-				let userId = value.currentTarget.dataset.userId
-				let level = value.currentTarget.dataset.level
+			gotoDetail(value,level){
+				// console.log('gotoDetail',value)
+				// let userId = value.currentTarget.dataset.userId
+				// let level = value.currentTarget.dataset.level
 				uni.navigateTo({
-					url: `/pages/user/expenddetail?userId=${userId}&level=${level}`
+					url: `/pages/user/expenddetail?userId=${value.userId}&level=${level}`
 				})
 			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
+.fc-ff0 {
+	color: #ff0000 !important;
+}
 .container{
 	padding: 0;
 }	
@@ -166,9 +219,9 @@ table tr th:nth-child(3),
 table tr td:nth-child(3) {
 	width: 150rpx;
 }
-table tr td:nth-child(4) {
-	color: #FF411C;
-}
+// table tr td:nth-child(4) {
+// 	color: #FF411C;
+// }
 table tr th:last-child,
 table tr td:last-child {
 	width: 72rpx;

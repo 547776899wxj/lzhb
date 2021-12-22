@@ -7,7 +7,7 @@
 		<view class="user-info">
 			<view class="flex-between ac">
 				<view class="dflex ac">
-					<image :src="userInfo.userPhoto || '../../static/img/icon/default-user.png'" class="user-head"></image>
+					<image :src="userInfo.userPhoto || domainStatic+'/img/icon/default-user.png'" class="user-head"></image>
 					<view class="dflex fdc jc-fs">
 						<view class="fs-26 lh-26 fc-464 mb8">{{ userInfo.userNickName || userInfo.mobile || '' }}</view>
 						<view class="fs-26 lh-26 fc-464">
@@ -25,15 +25,15 @@
 				<view class="openbox mb60">
 					<view class="flex-between ac mb26">
 						<view class="dflex ac">
-							<image src="../../static/img/icon/openbox-icon@2x.png" class="openbox-icon"></image>
+							<image :src="domainStatic+'/img/icon/openbox-icon@2x.png'" class="openbox-icon"></image>
 							<view class="fs-28 lh-28 fc-464 fw-b">{{ goods.goodsTitle }}</view>
 						</view>
 						<view class="fs-28 lh-28 fc-464">请选择您心仪的盒子</view>
 					</view>
 					<view class="blindbox-list mb42">
 						<view class="blindbox" v-for="(item, index) in blindbox" @click.stop="changeBox(item)">
-							<image src="../../static/img/images/openBoxBg.png" class="blindbox-case"></image>
-							<image src="../../static/img/images/blindbox-cur@2x.png" class="blindbox-cur" v-if="item.checked"></image>
+							<image :src="domainStatic+'/img/images/openBoxBg.png'" class="blindbox-case"></image>
+							<image :src="domainStatic+'/img/images/blindbox-cur@2x.png'" class="blindbox-cur" v-if="item.checked"></image>
 						</view>
 					</view>
 					<view class="btn-box">
@@ -58,7 +58,7 @@
 											<view class="fs-26 lh-36 fc-464 user-length">抽中了{{ openItem.goodsTitle }}</view>
 										</view>
 										<view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
-											<image src="../../static/img/icon/default-user.png" class="winner-user mr12"></image>
+											<image :src="domainStatic+'/img/icon/default-user.png'" class="winner-user mr12"></image>
 											<view class="fs-26 lh-26 fc-ff0">回收了{{ openItem.goodsItemRecyclePrice }}魔石</view>
 										</view>
 									</view>
@@ -166,7 +166,7 @@
 							<view class="goods-info dflex ac" @click="showItemGoodsInfoFun(item.goodsItemGoodsId)">
 								<view @click.stop="onSelectBoxItem(index)">
 									<view class="goods-radio" v-if="!item.checked"></view>
-									<image src="../../static/img/icon/goods-radio@2x.png" class="goods-radio checked" v-else></image>
+									<image :src="domainStatic+'/img/icon/goods-radio@2x.png'" class="goods-radio checked" v-else></image>
 								</view>
 								<image :src="item.goodsImage" mode="" class="goods-image"></image>
 								<view class="wp100">
@@ -197,12 +197,12 @@
 								</view>
 							</view>
 						</view>
-						<image @click="navToUser" src="../../static/img/bg/adv-Invitation.png" mode="widthFix" class="adv-img" :style="{position: paySuccessResult.rows.length>1?'relative':'absolute'}"></image>
+						<image @click="navToUser" :src="domainStatic+'/img/bg/adv-Invitation.png'" mode="widthFix" class="adv-img" :style="{position: paySuccessResult.rows.length>1?'relative':'absolute'}"></image>
 					</scroll-view>
 					<view>
 						<view class="coupon" v-show="isCouponShow">
 							<view class="text-center fs-40 mb20">可使用抵用券</view>
-							<image class="close-image" @click="isCouponShow = false" src="../../static/img/icon/main-close.png" mode=""></image>
+							<image class="close-image" @click="isCouponShow = false" :src="domainStatic+'/img/icon/main-close.png'" mode=""></image>
 							<scroll-view scroll-y="true" style="height: calc(100% - 194rpx);">
 								<view class="coupon-item " v-for="item in couponData" :key="item.voucherId" @click="radioChange(item)">
 									<view class="dflex justify-between  align-center">
@@ -231,12 +231,12 @@
 								<text v-if="couponAmount != 0" class="fc-red">+{{ couponAmount }}魔石</text>
 								<text v-else-if="couponData.length > 0" class="fc-red">可用{{ couponData.length }}张</text>
 								<text v-else>暂无可用</text>
-								<image class="more-icon" src="../../static/img/icon/more-icon.png" mode=""></image>
+								<image class="more-icon" :src="domainStatic+'/img/icon/more-icon.png'" mode=""></image>
 							</view>
 						</view>
 						<view class="change-box mb20" @click="onSelectBoxItemAll">
 							<view class="change-btn" v-if="!paySuccessResult.isSelectAll"></view>
-							<image src="../../static/img/icon/goods-radio@2x.png" class="change-btn cur" v-else></image>
+							<image :src="domainStatic+'/img/icon/goods-radio@2x.png'" class="change-btn cur" v-else></image>
 							<view class="fs-30 lh-30 fc-464">全选</view>
 						</view>
 						<view class="recovery-btn mb20" @click="onRecycle">
@@ -331,6 +331,7 @@ export default {
 			loadingText:'加载中...',
 			isPreview:1,
 			voucherList:[],
+			domainStatic:this.domainStatic
 		};
 	},
 	created: function() {
@@ -812,7 +813,7 @@ export default {
 			align-items: center;
 			&.radio-active {
 				border: none;
-				background: url(../../static/img/icon/goods-radio@2x.png);
+				background: url(https://boxapp.citytp.com/static/img/icon/goods-radio@2x.png);
 				background-size: 36rpx;
 			}
 		}

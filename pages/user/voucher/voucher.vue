@@ -12,7 +12,7 @@
 			<view class="coupon-item " v-for="item in voucherList" :key="item.voucherId" :class="{opt7:segmentedCurrent==1}">
 				<view class="dflex justify-between  align-center ">
 					<view class="dflex align-center">
-						<view><image class="voucher-img" src="../../../static/img/icon/voucher.png" mode=""></image></view>
+						<view><image class="voucher-img" :src="domainStatic+'/img/icon/voucher.png'" mode=""></image></view>
 						<view>
 							<view class="coupon-name fs-30">回收抵用券</view>
 							<view class="fs-24 pb10" v-if='item.voucherUseTime && item.voucherState'>使用时间{{ item.voucherUseTime }}</view>
@@ -48,6 +48,7 @@ export default {
 				{value:1,name:'已使用'},
 			],
 			segmentedCurrent: 2,
+			domainStatic:this.domainStatic,
 		};
 	},
 	onLoad() {

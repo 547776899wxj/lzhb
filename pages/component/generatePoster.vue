@@ -1,25 +1,12 @@
 <template>
 	<view class="">
-		<view class="cu-modal" :class="showPoster?'show':''">
+		<view  :class="{'show':showPoster,'cu-modal':!isLoding}">
 			<view class="share-pop wp100 hp100 flex-center">
 				<view class="dflex fdc ac share-pop-box">
-					<view class="wp100 dflex pr mb50">
+					<view class="wp100 dflex pr mb50" >
 						<l-painter  :board="base" isRenderImage @success="posterPath = $event" />
-						<!-- <image src="/static/img/bg/share-pop@2x.png" class="share-pop-image" style="width: 100%;height: 438px;" mode="scaleToFill"></image>
-						<view class="share-info flex-center">
-							<image class="recommend-head"></image>
-							<view class="dflex fdc ai-fs">
-								<view class="fs-28 lh-28 fc-f fw-b fs-i mb9">叶奋松</view>
-								<view class="fs-24 lh-24 fc-f fw-b fs-i">17759008262</view>
-							</view>
-						</view>
-						<view class="share-text flex-center">- 叶奋松邀请您注册好量子盒变领取福利 -</view>
-						<view class="recommend-code-box flex-center">
-							<image src="../../static/img/bg/share-code@2x.png" class="wp100 hp100 recommend-code-bg" mode=""></image>
-							<image src="../../static/img/bg/code@2x.png" class="recommend-code" style="height: 110px;" mode="scaleToFill"></image>
-						</view> -->
-					</view>
-					<view class="flex-center">
+					</view> 
+					<view class="flex-center" v-show="!isLoding">
 						<view class="download-btn l-btn fs-26 lh-26 flex-center mr56" @click="showPoster = false">取消</view>
 						<view class="l-btn bg-pp fc-f fs-26 lh-26 flex-center" @click="downloadSuc()">下载图片</view>
 					</view>
@@ -37,7 +24,7 @@
 		},
 		data() {
 			return {
-				showPoster:false,
+				showPoster:true,
 				base: {
 					width: '517rpx',
 					height: '880rpx',
@@ -45,7 +32,9 @@
 				},
 				shareUrl:'',
 				posterPath:'',
-				userInfo:{}
+				userInfo:{},
+				domainStatic:this.domainStatic,
+				isLoding:true,
 			};
 		},
 		created() {
@@ -55,6 +44,10 @@
 			uni.$api.getUserSpreadShareUrl().then(res => {
 				this.shareUrl = res.url
 			})
+		},
+		mounted() {
+			this.showPoster = false
+			this.isLoding = false;
 		},
 		methods:{
 			downloadSuc () {
@@ -91,7 +84,7 @@
 					views: [
 						{
 							type: 'image',
-							src:uni.$index.DOMAIN+'/static/v4/m/img/bg/share-pop@2x.png',
+							src: '../../static/img/posterBg.jpg',
 							mode: 'scaleToFill',
 							css: {
 								left: '0rpx',
@@ -102,7 +95,7 @@
 						},
 						{
 							type: 'image',
-							src:self.userInfo.userPhoto?self.userInfo.userPhoto:'/static/img/icon/default-user.png',
+							src:'../../static/img/default-user.png',
 							mode: 'scaleToFill',
 							css: {
 								top:'72rpx',
@@ -152,7 +145,7 @@
 						},
 						{
 							type: 'image',
-							src:'/static/img/bg/share-code@2x.png',
+							src: '../../static/img/share-code@2x.png',
 							mode: 'scaleToFill',
 							css: {
 								top:'502rpx',
@@ -175,7 +168,7 @@
 						},
 						{
 							type: 'image',
-							src:'/static/img/images/logo_55.png',
+							src: '../../static/img/logo_55.png',
 							mode: 'scaleToFill',
 							css: {
 								top:'593rpx',
@@ -187,6 +180,8 @@
 					]
 				}
 				self.base = poster
+				console.log('```````````````````````````````````````````````````');
+				console.log(poster);
 				setTimeout(function () {
 					uni.hideLoading()
 					self.showPoster = true
@@ -198,8 +193,12 @@
 </script>
 
 <style lang="scss">
+.cu-modal.show{
+	display: block;
+}
 .cu-modal {
 	z-index: 10000;
+	display: none;
 }
 .share-pop {
 	position: absolute;

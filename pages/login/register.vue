@@ -55,13 +55,15 @@
 					isCheck:false
 				},
 				modalName: null,
+				userId:'',
+				mobile:'',
 			}
 		},
 		onLoad(e) { 
-			console.log('onLoad',e)
-		},
-		destroyed() {
-			console.log("destroyed")
+			this.userId = e.id;
+			if(e.mobile){
+				this.mobile = e.mobile.substring(0, 3) + '****' + e.mobile.substring(7);
+			}
 		},
 		methods: {
 			onSendCode(){

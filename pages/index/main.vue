@@ -15,14 +15,14 @@
 				<view class="special" @click.stop="toBlindboxIndex()">
 					<image :src="menu1.advUrl" class="special-bg"></image>
 					<view class="dflex fdc ai-fe special-text">
-						<image src="../../static/img/icon/now-icon@2x.png" class="area-icon"></image>
+						<image :src="domainStatic+'/img/icon/now-icon@2x.png'" class="area-icon"></image>
 						<view class="fs-26 lh-26 fc-464 fw-b">即时专区</view>
 					</view>
 				</view>
 				<view class="special" @click.stop="toTimeBox()">
 					<image :src="menu2.advUrl" class="special-bg"></image>
 					<view class="dflex fdc ai-fe special-text">
-						<image src="../../static/img/icon/time-icon@2x.png" class="area-icon"></image>
+						<image :src="domainStatic+'/img/icon/time-icon@2x.png'" class="area-icon"></image>
 						<view class="fs-26 lh-26 fc-464 fw-b">时段专区</view>
 					</view>
 				</view>
@@ -34,7 +34,7 @@
 			<view class="winner-box mb20" v-if="openList.length > 0">
 				<view class="flex-between ac mb24">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/openbox-icon@2x.png" class="openbox-icon"></image>
+						<image :src="domainStatic+'/img/icon/openbox-icon@2x.png'" class="openbox-icon"></image>
 						<view class="fs-28 lh-28 fc-464 fw-b">开盒名单</view>
 					</view>
 					<view class="navi-btn" @click.stop="toNewBox()">查看</view>
@@ -50,7 +50,7 @@
 										<view class="fs-26 lh-36 fc-464 user-length">抽中了{{ openItem.goodsTitle }}</view>
 									</view>
 									<view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
-										<image src="../../static/img/icon/default-user.png" class="winner-user mr12"></image>
+										<image :src="domainStatic+'/img/icon/default-user.png'" class="winner-user mr12"></image>
 										<view class="fs-26 lh-26 fc-ff0">回收了{{ openItem.goodsItemRecyclePrice }}魔石</view>
 									</view>
 								</view>
@@ -62,7 +62,7 @@
 			<view class="introduce-box" v-if="prizeAdvList.length > 0">
 				<view class="flex-between ac mb24">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/openbox-icon2@2x.png" class="openbox-icon"></image>
+						<image :src="domainStatic+'/img/icon/openbox-icon2@2x.png'" class="openbox-icon"></image>
 						<view class="fs-28 lh-28 fc-464 fw-b">幸运盒子</view>
 					</view>
 				</view>
@@ -72,13 +72,13 @@
 		<view class="popup fs-32" v-if="isPopupShow">
 			<text class="popup-text ">连续签到7天，送魔石抵用券</text>
 			<view class="navi-btn" @click="signIn">签到</view>
-			<image src="../../static/img/icon/close.png" @click="isPopupShow = false" class="popup-close" mode=""></image>
+			<image :src="domainStatic+'/img/icon/close.png'" @click="isPopupShow = false" class="popup-close" mode=""></image>
 		</view>
 		<uni-sign-in ref="signIn" :signInRes="signInRes" :tips="signInTips"></uni-sign-in>
 		<uni-popup  ref="popupTip" type="center">
 			<view class="popupTip">
 				<view class="mb40">
-					<image class="tipTime" src="../../static/tipTime.png" mode=""></image>
+					<image class="tipTime" :src="domainStatic+'/tipTime.png'" mode=""></image>
 				</view>
 				<uni-icons @click="closePopupTip()" class="close-icon" type="closeempty" size="20" color="#AAAAAA"></uni-icons>
 			</view>
@@ -107,7 +107,8 @@ export default {
 				days: [],
 				n: 0
 			},
-			signInTips: ''
+			signInTips: '',
+			domainStatic:this.domainStatic
 		};
 	},
 	computed: {
@@ -133,7 +134,6 @@ export default {
 	},
 	methods: {
 		getUserSignIn() {
-			// getUserSignIn
 			uni.$api.getUserSignIn().then(res => {
 				console.log(res);
 				let days = [];

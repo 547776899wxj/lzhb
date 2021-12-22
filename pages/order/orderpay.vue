@@ -25,7 +25,7 @@
 			<view class="pay-way">
 				<view class="flex-between ac">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/pay-bag@2x.png" mode="" class="m-icon mr32"></image>
+						<image :src="domainStatic+'/img/icon/pay-bag@2x.png'" mode="" class="m-icon mr32"></image>
 						<view class="fs-28 fc-303 dflex">{{scoreName}} (<view class="dflex ai-fe">
 								<view class="fs-24 fc-303">￥</view>
 								<view class="fs-28 lh-28 fc-303 mb2">{{score.money}}</view>
@@ -64,7 +64,7 @@
 
 				</view>
 				<view class="wait-pay lh-48 fs-28 fc-303 mb80">
-					<image src="../../static/img/images/waitpay@2x.png" mode="widthFix" class="mb28"></image>
+					<image :src="domainStatic+'/img/images/waitpay@2x.png'" mode="widthFix" class="mb28"></image>
 					<view class="fs-30 lh-30 fc-9">正在支付中……</view>
 				</view>
 				<view class="padding-lg pt0 cu-bar bg-white dflex jc-c">
@@ -100,7 +100,8 @@
 					payId:'',
 					channelType:'',
 					mode :1
-				}
+				},
+				domainStatic:this.domainStatic,
 			}
 		},
 		onLoad(e) {

@@ -9,7 +9,7 @@ import { toPx, compareVersion, sleep, isNumber, base64ToPath, pathToBase64 } fro
 import { Draw } from './draw';
 import { Layout } from './layout';
 import { adaptor, expand } from './canvas';
-export default {
+export default { 
 	// version: '1.6.1',
 	name: 'l-painter',
 	props: {

@@ -63,7 +63,7 @@
 		<uni-popup ref="popup" type="bottom">
 			<view class="popup">
 				<view class="popup-content">
-					<image class="close-image" @click="closePopup" src="../../static/img/icon/main-close.png" mode=""></image>
+					<image class="close-image" @click="closePopup" :src="domainStatic+'/img/icon/main-close.png'" mode=""></image>
 					<image :src="popupData.goodsImage" mode="" class="goods-image"></image>
 					<view class="wp100">
 						<view class="goods-name mt8 mb48">{{popupData.goodsTitle}}</view>
@@ -87,7 +87,7 @@
 						<text v-if="couponAmount!=0" class="fc-red">+{{couponAmount}}魔石</text>
 						<text v-else-if="couponData.length>0" class="fc-red">可用{{couponData.length}}张</text>
 						<text v-else>暂无可用</text>
-						<image class="more-icon" src="../../static/img/icon/more-icon.png" mode=""></image>
+						<image class="more-icon" :src="domainStatic+'/img/icon/more-icon.png'" mode=""></image>
 					</view>
 				</view>
 				<view class="recovery-btn" @click="confirmRecycle">确定回收<text class="fc-f ml10 mr10">{{totalRecoveryPrice}}</text>魔石</view>
@@ -95,7 +95,7 @@
 					<view class="text-center fs-40 mb20">
 						可使用抵用券
 					</view>
-					<image class="close-image" @click="isCouponShow=false" src="../../static/img/icon/main-close.png" mode=""></image>
+					<image class="close-image" @click="isCouponShow=false" :src="domainStatic+'/img/icon/main-close.png'" mode=""></image>
 					<scroll-view scroll-y="true" style="height: calc(100% - 154rpx);">
 						<view class=" coupon-item " v-for="item in couponData" :key='item.voucherId' @click="radioChange(item)">
 							<view class="dflex justify-between  align-center">
@@ -179,6 +179,7 @@
 				couponAmount:0,
 				recycleing:false,
 				voucherList:[],
+				domainStatic:this.domainStatic
 			}
 		},
 		computed:{
@@ -502,7 +503,7 @@
 			align-items: center;
 			&.radio-active{
 				border: none;
-				background: url(../../static/img/icon/goods-radio@2x.png);
+				background: url(https://boxapp.citytp.com/static/img/icon/goods-radio@2x.png);
 				background-size: 36rpx ;
 				// &::before{
 				// 	font: normal normal normal 14px/1 uni;

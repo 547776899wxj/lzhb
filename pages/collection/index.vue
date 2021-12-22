@@ -9,7 +9,7 @@
 		<view class="user-info">
 			<view class="flex-between ac">
 				<view class="dflex ac">
-					<image :src="user.userPhoto||'../../static/img/icon/default-user.png'" class="user-head"></image>
+					<image :src="user.userPhoto||domainStatic+'/img/icon/default-user.png'" class="user-head"></image>
 					<view class="dflex fdc jc-fs">
 						<view class="fs-26 lh-26 fc-464 mb8">{{user.userNickName || user.mobile}}</view>
 						<view class="fs-26 lh-26 fc-464">剩余: <text class="fc-ff0 fw-b">{{scoreMoney.money}}</text>魔石</view>
@@ -53,6 +53,7 @@
 	export default {
 		data() {
 			return {
+				domainStatic:this.domainStatic,
 				StatusBar: this.StatusBar,
 				showBuyDialog: false,
 				user:{},

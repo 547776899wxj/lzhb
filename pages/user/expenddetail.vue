@@ -21,7 +21,7 @@
 			</view> -->
 			<view class="toker-box mb20">
 				<view class="toker-info dflex ac">
-					<image :src="info.userPhoto || '/static/img/icon/default-user.png'" mode="" class="toker-head"></image>
+					<image :src="info.userPhoto || domainStatic+'/img/icon/default-user.png'" mode="" class="toker-head"></image>
 					<view class="dflex fdc ai-fs flex-1">
 						<view class="fs-28 lh-28 fc-3 mb44">{{info.userCertName}}（{{info.mobile}}）</view>
 						<!-- <view class="fs-24 lh-24 fc-9 mb10">账户状态：{{info.userMoneyShareStatus==1?'合拍账户':'普通'}}</view> -->
@@ -102,7 +102,8 @@
 					loading: false,
 					pageCount:0,
 					rows:[]
-				}
+				},
+				domainStatic:this.domainStatic,
 			}
 		},
 		onLoad(options) {

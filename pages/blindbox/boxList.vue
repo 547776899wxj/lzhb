@@ -9,7 +9,7 @@
 		<view class="user-info">
 			<view class="flex-between ac">
 				<view class="dflex ac">
-					<image :src=" userInfo.userPhoto ||'../../static/img/icon/default-user.png'" class="user-head"></image>
+					<image :src=" userInfo.userPhoto || domainStatic+'/img/icon/default-user.png'" class="user-head"></image>
 					<view class="dflex fdc jc-fs">
 						<view class="fs-26 lh-26 fc-464 mb8">{{userInfo.userNickName || userInfo.mobile || ''}}</view>
 						<view class="fs-26 lh-26 fc-464">剩余: <text class="fc-ff0 fw-b">{{userInfo.money}}</text>魔石</view>
@@ -21,7 +21,7 @@
 		<view class="line"></view>
 		<view class="container">
 			<navigator url="./introduction">
-				<image class="introduce-img" src="../../static/img/images/box-banner.png"></image>
+				<image class="introduce-img" :src="domainStatic+'/img/images/box-banner.png'"></image>
 			</navigator>
 			<view class="box-list">
 				<view class="box-item dflex justify-between align-center" v-for="(item,index) in boxList" :key='index' @click="navTo(item)">
@@ -43,7 +43,8 @@
 				introduceInfo: true,
 				gameIntroductionAdvList:[],
 				userInfo:{},
-				boxList:[]
+				boxList:[],
+				domainStatic:this.domainStatic
 			}
 		},
 		onShow() {
@@ -115,7 +116,7 @@
 			padding: 19rpx 19rpx 6rpx 19rpx;
 			.box-item{
 				// background: linear-gradient(0deg, #FED2C0 0%, #FFFFFF 100%);
-				background: url(../../static/img/bg/box-list-bg.png) no-repeat;
+				background: url(https://boxapp.citytp.com/static/img/bg/box-list-bg.png) no-repeat;
 				background-size: 100%;
 				height: 155rpx;
 				border-radius: 5rpx;

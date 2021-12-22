@@ -3,7 +3,7 @@
 // 	 * - 'release': 正式版; */
 // 	envVersion?: 'develop' | 'trial' | 'release';
 export const VERSION = '3.0.0';
-var domain; // 第三方设置
+var domain; 
 
 const extConfig = {};
 
@@ -17,6 +17,8 @@ domain = 'https://boxapp.citytp.com';
 export const QQ_MAP_WX_KEY = 'TJIBZ-CTY3W-G5ERW-OCRQK-UWUGV-FZBAZ';
 
 export const DOMAIN = domain;
+// 静态文件路径
+export const DOMAIN_STATIC = 'https://boxapp.citytp.com/static';
 
 export const LOGIN_PAGE = '/pages/login/login';
 /*首页页面地址*/

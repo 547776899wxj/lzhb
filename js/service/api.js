@@ -1,5 +1,7 @@
 /** 发送短信验证码-注册 **/
 export const sendRegisterSmsCode = data => post('/rest/v4/pp/app/sendRegisterSmsCode', data);
+/** 推荐注册-获取数据 **/
+export const getDataForRegister = data => post('/rest/v4/pp/h5/register/getData', data);
 /** 发送短信验证码-登录 **/
 export const sendLoginSmsCode = data => post('/rest/v4/pp/app/sendLoginSmsCode', data);
 /** 发送短信验证码-找回登录密码 **/
@@ -8,6 +10,8 @@ export const sendResetPasswordSmsCode = data => post('/rest/v4/pp/app/sendResetP
 export const sendBindWxSmsCode = data => post('/rest/v4/pp/app/sendBindWxSmsCode', data);
 /** 找回登录密码-手机号码 与 短信验证码 **/
 export const resetPwdByMobileWithSmsCode = data => post('/rest/v4/pp/app/resetPwdByMobileWithSmsCode', data);
+// 邀请注册
+export const h5Register = data => post('/rest/v4/pp/h5/mhRegister', data);
 
 /** 登录-手机号码 与 密码 **/
 export const loginByMobileWithPassword = data => post('/rest/v4/pp/app/loginByMobileWithPassword', data);
@@ -574,7 +578,6 @@ export const post = (url, dataSource = {}) => {
 		url: getReqDomain(url) + url,
 		data
 	}).then(res => {
-		console.log(res);
 		if (isPayPost) {
 			return payDeal(res);
 		}

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="height: 60rpx;"></view>
-		<view class="cu-bar search">
+		<view class="cu-bar search" >
 			<view class="action" @click="onLoginClose()">
 				<text class="cuIcon-close"></text>
 			</view>
@@ -11,7 +11,7 @@
 		</view>
 		<view class="container">
 			<view class="flex-center logo-box mb66">
-				<image src="../../static/img/images/logo@2x.png" class="logo"></image>
+				<image :src="domainStatic+'/img/images/logo@2x.png'" class="logo"></image>
 			</view>
 			<view class="form-group">
 				<input placeholder="手机号码" maxlength="11" name="input" placeholder-class="fc-c4cc" v-model="form.userName">
@@ -44,11 +44,11 @@
 				</view>
 				<view class="flex-center">
 					<view @click="wxLogin" class="flex-center fdc mr72" url="phonebindwx">
-						<image src="../../static/img/icon/wx-login@2x.png" class="wx-login-icon mb24"></image>
+						<image :src="domainStatic+'/img/icon/wx-login@2x.png'" class="wx-login-icon mb24"></image>
 						<text>微信一键登录</text>
 					</view>
 					<view class="flex-center fdc" @click.stop="phoneOneCodeLogin()">
-						<image src="../../static/img/icon/phone-login.png" class="wx-login-icon mb24"></image>
+						<image :src="domainStatic+'/img/icon/phone-login.png'" class="wx-login-icon mb24"></image>
 						<text>本机一键登录</text>
 					</view>
 				</view>
@@ -58,9 +58,6 @@
 </template>
 
 <script>
-	
-
-	
 	export default {
 		data() {
 			return {
@@ -78,7 +75,9 @@
 					appid:"",
 					appkey:""
 				},//推送信息
-				devType:""//手机类型
+				devType:"",//手机类型,
+				domainStatic:this.domainStatic,
+		
 			}
 		},
 		created() {
@@ -86,6 +85,7 @@
 			this.setPhoneInfo()
 			//#endif
 		},
+
 		onShow() {
 			this.ckVersion = uni.$session.getIosCkVersion() || ''
 		},

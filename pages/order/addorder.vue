@@ -63,13 +63,13 @@
 				<view class="fs-28 fc-303 fw-b">备注</view>
 				<view class="flex justify-end">
 					<view>{{userMessage}}</view>
-					<image src="/static/img/icon/arrow@3x.png" mode="" class="more-icon"></image>
+					<image :src="domainStatic+'/img/icon/arrow@3x.png'" mode="" class="more-icon"></image>
 				</view>
 				
 			</view>
 				<view class="remark-list flex-between ac">
 					<view class="dflex ac">
-						<image src="../../static/img/icon/pay-bag@2x.png" mode="" class="m-icon mr32"></image>
+						<image :src="domainStatic+'/img/icon/pay-bag@2x.png'" mode="" class="m-icon mr32"></image>
 						<view class="fs-28 fc-303 dflex">剩余魔石 (<view class="dflex ai-fe">
 								<view class="fs-24 fc-303">￥</view>
 								<view class="fs-28 lh-28 fc-303 mb2">{{score.money}}</view>
@@ -113,7 +113,8 @@
 				orderAddress:{},
 				showOrderRemark:false,
 				showAddress:false,
-				userMessage:""//订单备注
+				userMessage:"",//订单备注
+				domainStatic:this.domainStatic,
 			}
 		},
 		components:{

@@ -13,9 +13,8 @@
 				  placeholder-class="fc-c4cc" v-model="model.money" @input="onMoneyInput">
 			</view>
 			<view class="fs-28 lh-28 fc-393 mb50">充值金额数量比例1:1</view>
-			<view class="fs-28 lh-28 fc-303 mb20">选择支付方式</view>
+			<view class="fs-28 lh-28 fc-303 mb20" v-if="channelData.length>0">选择支付方式</view>
 			<view class="pay-way mb16">
-				
 				<view class="flex-between ac" v-for="(item,index) in channelData" :key='index'>
 					<view class="dflex ac">
 						<image :src="item.channelIcon" mode="" class="m-icon mr32"></image>
@@ -27,29 +26,6 @@
 						</checkbox>
 					</label>
 				</view>
-				<!-- <view class="flex-between ac">
-					<view class="dflex ac">
-						<image src="../../../static/img/icon/pay-zfb@2x.png" mode="" class="m-icon mr32"></image>
-						<view class="fs-28 fc-303">支付宝支付</view>
-					</view>
-					<label for="">
-						<checkbox class="hh-radio fs-0 mr16 round" :class="isCheck?'checked':''" :checked="isCheck">
-						</checkbox>
-					</label>
-				</view> -->
-				<!-- <view class="flex-between ac">
-					<view class="dflex ac">
-						<image src="../../../static/img/icon/pay-bag@2x.png" mode="" class="m-icon mr32"></image>
-						<view class="fs-28 fc-303 dflex">余额支付 (<view class="dflex ai-fe">
-								<view class="fs-24 fc-303">￥</view>
-								<view class="fs-28 lh-28 fc-303 mb2">{{userBalance.money}}</view>
-							</view>)</view>
-					</view>
-					<label for="">
-						<checkbox class="hh-radio fs-0 mr16 round" :class="isCheck?'checked':''" :checked="isCheck">
-						</checkbox>
-					</label>
-				</view> -->
 			</view>
 			<label class="dflex jc-fs ac wp100 mb80" @click="model.payCheck = !model.payCheck">
 				<checkbox class="hh-radio fs-0 mr16 round" :class="model.payCheck?'checked':''"
@@ -66,7 +42,7 @@
 
 				</view>
 				<view class="wait-pay lh-48 fs-28 fc-303 mb80">
-					<image src="../../../static/img/images/waitpay@2x.png" mode="widthFix" class="mb28"></image>
+					<image :src="domainStatic+'/img/images/waitpay@2x.png'" mode="widthFix" class="mb28"></image>
 					<view class="fs-30 lh-30 fc-9">正在支付中……</view>
 				</view>
 				<view class="padding-lg pt0 cu-bar bg-white dflex jc-c">
@@ -91,14 +67,17 @@
 					money: '',
 					payId: '',
 					channelType: ''
-				}
+				},
+				domainStatic:this.domainStatic,
 			}
 		},
 		created: function() {
 			var self = this;
-			uni.$api.getPayChannel({}).then(res => {
-				self.channelData = res.data;
-			});
+			// #ifndef MP-WEIXIN
+				uni.$api.getPayChannel({}).then(res => {
+					self.channelData = res.data;
+				});
+			// #endif
 		},
 		beforeDestroy() {
 			if (this.timers) {
@@ -118,12 +97,6 @@
 				})
 			},
 			onChannelSelect: function(item) {
-				// for(var i = 0;i<this.channelData.length;i++){
-				// 	this.channelData[i].channelCheck = 0;
-				// 	if(this.channelData[i].channelType == val){
-				// 		this.channelData[i].channelCheck =1;
-				// 	}
-				// }
 				this.channelData.map(e => {
 					if (e.payId == item.payId) {
 						e.channelCheck = e.channelCheck == 1 ? 0 : 1
@@ -168,22 +141,21 @@
 					uni.$toast.showError('请勾选同意支付协议！');
 					return;
 				}
-				// for(var i = 0;i<this.channelData.length;i++){
-				// 	if(this.channelData[i].channelCheck == 1){
-				// 		this.model.payId = this.channelData[i].payId;
-				// 		this.model.channelType = this.channelData[i].channelType;
-				// 	}
-				// }
-				var item = this.channelData.find(e => {
-					return e.channelCheck == 1
-				})
-				if (!item) {
-					uni.$toast.showToast('请选择支付方式')
-					return
-				}
-				this.model.payId = item.payId;
-				this.model.channelType = item.channelType;
-
+				// #ifndef MP-WEIXIN
+					var item = this.channelData.find(e => {
+						return e.channelCheck == 1
+					})
+					if (!item) {
+						uni.$toast.showToast('请选择支付方式')
+						return
+					}
+					this.model.payId = item.payId;
+					this.model.channelType = item.channelType;
+				// #endif
+				// #ifdef MP-WEIXIN
+					this.model.payId = 202;
+					this.model.channelType = 2;
+				// #endif
 				var self = this;
 				uni.$api.rechargeScore(this.model).then(res => {
 					console.log(JSON.stringify(res.data))

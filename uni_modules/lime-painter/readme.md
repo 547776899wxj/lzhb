@@ -230,7 +230,7 @@ data() {
             views: [
                 {
                     type: 'image',
-                    src: '../../static/avatar-1.jpeg',
+                    src: 'https://boxapp.citytp.com/static/avatar-1.jpeg',
                     css: {
                         left: '0rpx',
                         top: '0rpx',
@@ -240,7 +240,7 @@ data() {
                 },
                 {
                     type: 'image',
-                    src: '../../static/avatar-2.jpg',
+                    src: 'https://boxapp.citytp.com/static/avatar-2.jpg',
                     css: {
                         left: '150rpx',
                         top: '0rpx',
@@ -251,7 +251,7 @@ data() {
                 },
                 {
                     type: 'image',
-                    src:'../../static/avatar-3.jpeg',
+                    src:'https://boxapp.citytp.com/static/avatar-3.jpeg',
                     css: {
                         left: '300rpx',
                         top: '0rpx',
@@ -493,7 +493,7 @@ export default {
 				ctx.closePath()
 				ctx.fill()
 				// 绘制好形状后，调用draw的drawImage方法填充图片，图片会下载完成后绘制。无需自己下载。
-				await draw.drawImage('../../static/avatar-1.jpeg', {left: 0, top: 0, width:150, height:150})
+				await draw.drawImage('https://boxapp.citytp.com/static/avatar-1.jpeg', {left: 0, top: 0, width:150, height:150})
 			})
 			await p.custom((ctx) => {
 				// 绘制背景颜色
@@ -580,7 +580,7 @@ data() {
                 },
                 {
                     type: 'image',
-                    src: '../../static/avatar-2.jpg',
+                    src: 'https://boxapp.citytp.com/static/avatar-2.jpg',
                     mode: 'widthFix',
                     css: {
                         left: '40rpx',
@@ -614,7 +614,7 @@ data() {
                 },
                 {
                     type: 'image',
-                    src: '../../static/goods.jpg',
+                    src: 'https://boxapp.citytp.com/static/goods.jpg',
                     mode: 'widthFix',
                     css: {
                         left: '72rpx',
@@ -650,7 +650,7 @@ data() {
                 },
                 {
                     type: 'image',
-                    src: '../../static/qr.png',
+                    src: 'https://boxapp.citytp.com/static/qr.png',
                     mode: 'widthFix',
                     css: {
                         left: '500rpx',

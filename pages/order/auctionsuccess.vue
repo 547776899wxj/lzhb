@@ -6,13 +6,13 @@
 		</cu-custom>
 		<view class="container">
 			<view class="flex-center fdc mb120">
-				<image src="../../static/img/images/pay-success.png" mode="widthFix" class="pay-success mb50"></image>
+				<image :src="domainStatic+'/img/images/pay-success.png'" mode="widthFix" class="pay-success mb50"></image>
 				<view class="fs-64 lh-64 fc-3 fw-b dflex ai-fe">
 					<view class="fs-50 lh-50 mb4">￥</view>{{ order.orderPayMoney| intFormat}}{{ order.orderPayMoney| decimalFormat}}
 				</view>
 			</view>
 			<view class="dflex ai-fs jc-c mb70">
-				<image src="../../static/img/icon/warning.png" mode="widthFix" class="warning fs-0 mr6 mt10"></image>
+				<image :src="domainStatic+'/img/icon/warning.png'" mode="widthFix" class="warning fs-0 mr6 mt10"></image>
 				<view class="fs-30 lh-50 fc-d52 tl wm540">
 					请选择寄存并转卖或者立即发货，如果您在{{days}}天之内不进行操作，平台将默认认为您需要立即发货
 					</view>
@@ -21,7 +21,7 @@
 				<view class="detail-btn flex-center" @click="toOrderDetail">前往订单详情进行转卖或立即发货</view>
 			</view>
 			<view class="blind-box mt116" v-if="onSaleGameBoxCount > 0">
-				<image class="wp100" src="../../static/img/images/blind-banner.png" mode="widthFix" @click="gotoGameBoxDetail"></image>
+				<image class="wp100" :src="domainStatic+'/img/images/blind-banner.png'" mode="widthFix" @click="gotoGameBoxDetail"></image>
 			</view>
 		</view>
 	</view>
@@ -34,7 +34,8 @@
 				onSaleGameBoxCount:0,
 				orderId:'',
 				days:'',
-				order:{}
+				order:{},
+				domainStatic:this.domainStatic,
 			}
 		},
 		onShow() {

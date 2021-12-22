@@ -20,7 +20,7 @@
 						<view class="fs-24 lh-34 fc-ff4">{{order.orderStatusName}}</view>
 					</view>
 					<view class="goods-info dflex ai-fs mb16" v-for="(goods,index) in order.details" v-if="order.details && order.details.length > 0">
-						<image v-if="order.orderType == 41" src="../../static/img/images/blindbox.png" class="goods-image mr16" mode=""></image>
+						<image v-if="order.orderType == 41" :src="domainStatic+'/img/images/blindbox.png'" class="goods-image mr16" mode=""></image>
 						<image v-else :src="goods.orderGoodsImage" class="goods-image mr16" mode=""></image>
 						<view class="flex-1">
 							<view class="flex-between ai-fs mb16">
@@ -122,6 +122,7 @@
 				sendAddresssOrderId: '',
 				
 				isReachBottom:true,
+				domainStatic:this.domainStatic,
 			}
 		},
 		mounted: function () {

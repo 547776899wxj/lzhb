@@ -34,7 +34,7 @@
 				</view> -->
 				<view class="profit-box">
 					<view class="pl40 dflex ac mb32">
-						<image src="../../static/img/icon/profit-icon@2x.png" mode="" class="m-icon"></image>
+						<image :src="domainStatic+'/img/icon/profit-icon@2x.png'" mode="" class="m-icon"></image>
 						<view class="fs-32 lh-44 fc-303 fw-b">统计</view>
 					</view>
 					<view class="flex-between ac mb40">
@@ -60,7 +60,7 @@
 				</view>
 				<view class="profit-box mt20">
 					<view class="pl40 dflex ac mb32">
-						<image src="../../static/img/icon/profit-icon@2x.png" mode="" class="m-icon"></image>
+						<image :src="domainStatic+'/img/icon/profit-icon@2x.png'" mode="" class="m-icon"></image>
 						<view class="fs-32 lh-44 fc-303 fw-b">推荐收益进度</view>
 					</view>
 					<view class="box-progress">
@@ -89,13 +89,18 @@
 		components: {cmdProgress},
 		data() {
 			return {
-				info:{},
+				info:{
+					userResUserCountProgress:0,
+					userResAndSecondCountProgress:0,
+					userTeamConsumeMoneySumProgress:0,
+				},
 				reqList:[],
 				noteList:[],
 				reqSum:0,
 				noteSum:0,
 				prizePoolData:{},
-				opacityProfit:1
+				opacityProfit:1,
+				domainStatic:this.domainStatic,
 			}
 		},
 		// mounted() {

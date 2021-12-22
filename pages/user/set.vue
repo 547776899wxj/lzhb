@@ -8,29 +8,27 @@
 			<view class="set-list">
 				<view class="fs-30 fc-303 lh-40">头像</view>
 				<view class="dflex ac">
-					<image :src="userInfo.userPhoto || '/static/img/icon/default-user.png'" mode="" class="user-head" @click="onChooseImage"></image>
-					<image src="../../static/img/icon/more-icon.png" class="m-icon" mode=""></image>
+					<image :src="userInfo.userPhoto || domainStatic+'/img/icon/default-user.png'" mode="" class="user-head" @click="onChooseImage"></image>
+					<image :src="domainStatic+'/img/icon/more-icon.png'" class="m-icon" mode=""></image>
 				</view>
 			</view>
 			<view class="set-list">
 				<view class="fs-30 fc-303 lh-40">手机号码</view>
 				<view class="dflex ac">
 					<view class="fs-30 lh-40 fc-606">{{userInfo.mobile}}</view>
-					<!-- <image src="../../static/img/icon/more-icon.png" class="m-icon" mode=""></image> -->
 				</view>
 			</view>
 			<view class="set-list">
 				<view class="fs-30 fc-303 lh-40">姓名</view>
 				<view class="dflex ac">
 					<view class="fs-30 lh-40 fc-606">{{userInfo.userCertName}}</view>
-					<!-- <image src="../../static/img/icon/more-icon.png" class="m-icon" mode=""></image> -->
 				</view>
 			</view>
 			<view class="set-list" @click="popOpen">
 				<view class="fs-30 fc-303 lh-40">昵称</view>
 				<view class="dflex ac">
 					<view class="fs-30 lh-40 fc-606">{{userInfo.userNickName}}</view>
-					<image src="../../static/img/icon/more-icon.png" class="m-icon" mode=""></image>
+					<image :src="domainStatic+'/img/icon/more-icon.png'" class="m-icon" mode=""></image>
 				</view>
 			</view>
 			<view class="set-list" >
@@ -73,6 +71,7 @@
 		data() {
 			return {
 				userInfo:{},
+				domainStatic:this.domainStatic,
 			}
 		},
 		onLoad(){

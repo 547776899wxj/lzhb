@@ -108,7 +108,7 @@
        * 百分比
        */
       percent: {
-        type: Number,
+        type: [String, Number],
         default: 0
       },
       /**

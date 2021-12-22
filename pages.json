@@ -8,19 +8,7 @@
 					"bounce":"none"
 				}
 			}
-		},
-		{
-            "path" : "pages/index/index",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+		}
         ,{
             "path" : "pages/login/agreement/agreement",
             "style" :                                                                                    
@@ -44,7 +32,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/login/invite",
+		    "style" :
+		    {
+		        "navigationBarTitleText": "邀请",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/login/login",
             "style" :                                                                                    
@@ -153,77 +150,7 @@
 		    }
 		    
 		}
-        ,{
-            "path" : "pages/goods/list",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        },{
-            "path" : "pages/goods/goodsdetail",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/auction/index",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/auction/specialshow",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/auction/goodsdetail",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/auction/rules",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+       
         ,{
             "path" : "pages/user/index",
             "style" :                                                                                    
@@ -285,31 +212,7 @@
             
         }
         ,{
-            "path" : "pages/order/waitpay",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/order/orderpay",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/leave",
             "style" :                                                                                    
             {
 				"app-plus":{
@@ -341,18 +244,6 @@
 				},
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/addauction",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
             }
             
         }
@@ -393,42 +284,6 @@
             
         }
         ,{
-            "path" : "pages/user/auctiongoods",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        },
-		{
-            "path" : "pages/user/auctiongoods2",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/auctiongoods/detail",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/user/about",
             "style" :                                                                                    
             {
@@ -454,30 +309,6 @@
         }
         ,{
             "path" : "pages/user/assets",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/assets/withdrawal",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/assets/history",
             "style" :                                                                                    
             {
 				"app-plus":{
@@ -528,42 +359,6 @@
             
         }
         ,{
-            "path" : "pages/login/realname",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/login/bankcard",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/login/phonebindwx",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/component/tabbar",
             "style" :                                                                                    
             {
@@ -586,66 +381,7 @@
                 "enablePullDownRefresh": false
             }
             
-        } ,{
-            "path" : "pages/order/score/detail",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/assets/cold",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/message",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/collection",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/vipcoupon",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
+        } 
         ,{
             "path" : "pages/user/expenddetail",
             "style" :                                                                                    
@@ -718,104 +454,7 @@
             }
             
         }
-        
-        ,{
-            "path" : "pages/user/pprecord",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/cooperauction",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/cooperauction/shareasset",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/assets/levelaccount",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/cooperauction/historycooper",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/cooperauction/historyagreed",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/cooperauction/detail",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        
-        ,{
-            "path" : "pages/user/cooperauction/waitrecord",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        },{
+		,{
             "path" : "pages/order/auctionsuccess",
             "style" :                                                                                    
             {
@@ -837,47 +476,6 @@
                 "enablePullDownRefresh": false
             }
             
-        },
-		{
-            "path" : "pages/order/welfarepaysuccess",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        },{
-            "path" : "pages/index/index-1",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/ppsubstitution",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/substitution/substitution",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
         }
         ,{
             "path" : "pages/component/changeauction",
@@ -889,43 +487,7 @@
             
         }
         ,{
-            "path" : "pages/user/blindbox",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/blindbox/couponcenter",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/user/assets/couponrecord",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
             "path" : "pages/order/blindboxorder",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/blindboxorder/detail",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -943,60 +505,7 @@
             
         }
         ,{
-            "path" : "pages/laboratory/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        } ,{
-            "path" : "pages/laboratory/detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/blindbox/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/blindbox/list",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/blindbox/detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/blindbox/pay",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/blindbox/paysuccess",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
@@ -1041,15 +550,6 @@
 		    
 		}
 		,{
-		    "path" : "pages/blindbox/detailList",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-		,{
 		    "path" : "pages/blindbox/introduction",
 		    "style" :                                                                                    
 		    {
@@ -1085,15 +585,6 @@
             }
             
         }
-        ,{
-            "path" : "pages/blindbox/introduction",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
       
     ],
 	"globalStyle": {
@@ -1115,14 +606,6 @@
 		"iconWidth": "30px",
 		"height": "60px",
 	    "backgroundColor": "#ffffff",
-		// "midButton": {
-		// 	"height":"70px",
-		// 	"iconPath": "static/tabbar/auction.png",
-		// 	"selectedIconPath": "static/tabbar/auction-cur.png",
-		// 	"text": "转卖",
-		// 	"iconWidth":"32px",
-		// 	"color": "#fff"
-		// },
 	    "list": [{
 	        "pagePath": "pages/index/main",
 	        "iconPath": "static/tabbar/index.png",
