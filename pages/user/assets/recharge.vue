@@ -141,7 +141,7 @@
 					uni.$toast.showError('请勾选同意支付协议！');
 					return;
 				}
-				// #ifndef MP-WEIXIN
+				// #ifndef MP-WEIXIN 
 					var item = this.channelData.find(e => {
 						return e.channelCheck == 1
 					})
@@ -153,8 +153,9 @@
 					this.model.channelType = item.channelType;
 				// #endif
 				// #ifdef MP-WEIXIN
-					this.model.payId = 202;
+					this.model.payId = 204;
 					this.model.channelType = 2;
+					this.model.payType = 1;
 				// #endif
 				var self = this;
 				uni.$api.rechargeScore(this.model).then(res => {
