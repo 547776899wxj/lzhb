@@ -234,7 +234,10 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	.cu-bar{
+		position: relative !important;
+	}
 	.order-list {
 		padding: 16rpx 24rpx;
 		border-radius: 20rpx;

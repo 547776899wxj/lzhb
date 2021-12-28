@@ -8,9 +8,12 @@ var domain;
 const extConfig = {};
 
 domain = 'https://boxapp.citytp.com';
-// domain = 'http://192.168.0.149:8502';
+
 // #ifdef H5
 	domain = '/rest'; 
+// #endif 
+// #ifdef MP-WEIXIN
+	domain = 'https://boxapp.citytp.com';
 // #endif
 /* QQ地图KEY */
 

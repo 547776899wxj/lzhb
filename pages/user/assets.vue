@@ -3,7 +3,9 @@
 		<cu-custom bgColor="bg-156" rightUrl="./assets/balance" pageClassR="fc-f op75 pr32" :isBack="true">
 			<block slot="backText"></block>
 			<block slot="content">资产</block>
-			<block slot="right">魔石明细</block>
+			<!-- #ifndef MP-WEIXIN -->
+				<block slot="right">魔石明细</block>
+			<!-- #endif -->
 		</cu-custom>
 		<view class="color-bg"></view>
 		<view class="container">
@@ -17,41 +19,38 @@
 						<text class="cuIcon-right fc-f more-cold"></text>
 					</navigator>
 				</view> -->
-				<view class="fs-34 fc-f lh-36 mb20">奖金池</view>
+				<view class="fs-34 fc-f lh-36 mb20">交易额</view>
 				<view class="fs-64 lh-80 fc-f">{{prizePoolData.prizePoolTotal}}</view>
 				<view class="pr mb38">
 				</view>
-				<!-- <view class="flex-between ac wp100 mb20">
-					<navigator class="operation-btn shallow flex-center fc-f" url="../login/bankcard">
-						绑定银行卡
-					</navigator>
-					<navigator class="operation-btn shallow flex-center fc-f" url="assets/withdrawal">
-						提现
-					</navigator>
-					<navigator class="operation-btn flex-center fc-146" url="assets/recharge">
-						保障金充值
-					</navigator>
-				</view> -->
+				<!-- #ifdef MP-WEIXIN -->
+					<view class="flex  wp100 mb20">
+						<navigator class="operation-btn shallow flex-center fc-f" url="./assets/balance">
+							魔石明细
+						</navigator>
+					</view>
+				<!-- #endif -->
 				<view class="profit-box">
 					<view class="pl40 dflex ac mb32">
 						<image :src="domainStatic+'/img/icon/profit-icon@2x.png'" mode="" class="m-icon"></image>
 						<view class="fs-32 lh-44 fc-303 fw-b">统计</view>
 					</view>
 					<view class="flex-between ac mb40">
-						<view class="profit-info">
+						<!-- <view class="profit-info">
 							<view class="fs-24 lh-34 fc-939 mb8">累计充值</view>
 							<view class="fs-38 fc-303 lh-46 fw-b">{{info.sumRechargeMoney}}</view>
-						</view>
+						</view> -->
 						<view class="profit-info">
 							<view class="fs-24 lh-34 fc-939 mb8">累计直推收益</view>
 							<view class="fs-36 fc-303 lh-44 fw-b" :style="{opacity:opacityProfit}">{{info.sumRecProfitMoney}}</view>
 						</view>
-					</view>
-					<view class="flex-between ac">
 						<view class="profit-info">
 							<view class="fs-24 lh-34 fc-939 mb8">累计间推收益</view>
 							<view class="fs-38 fc-303 lh-46 fw-b" :style="{opacity:opacityProfit}"> {{info.sumSecProfitMoney}}</view>
 						</view>
+					</view>
+					<view class="flex-between ac">
+						
 						<view class="profit-info" @click="gotoBreakRecord">
 							<view class="fs-24 lh-34 fc-939 mb8">累计团队收益</view>
 							<view class="fs-36 fc-303 lh-44 fw-b" :style="{opacity:opacityProfit}">{{info.sumTeamProfitMoney}}</view>

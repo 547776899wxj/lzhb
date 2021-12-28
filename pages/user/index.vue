@@ -177,20 +177,22 @@ export default {
 			voucherCount: 0,
 			phoneNum: '',
 			domainStatic: this.domainStatic,
+			path:'',
 		};
 	},
 	onShareAppMessage() {
 		var shareUrl = this.user.userShareMpWxUrl;
 		var title = this.user.userShareContent;
 		var imageUrl = this.user.userShareMpWxImageUrl;
-		console.log(shareUrl);
+		
 		return {
 			title,
-			path: `/pages/login/invite?id=${this.user.userId}&mobile=${this.user.mobile}`,
+			path: this.path,
 			imageUrl
 		};
 	},
 	onLoad() {
+		uni.showShareMenu();
 		if (uni.$auth.isLoginAndCheckPeopleStatus()) {
 			uni.showLoading({
 				title: '加载中',
@@ -224,7 +226,7 @@ export default {
 		});
 	},
 	methods: {
-		// 邀请海报
+		// 邀请海报 
 		posterTap() {
 			this.$refs.posterRef.buildPoster();
 		},
@@ -343,6 +345,8 @@ export default {
 						waitDealBalanceShareShow
 					} = res.data;
 					this.user = user;
+					this.path = `/pages/login/invite?id=${this.user.userId}`
+					console.log(this.path);
 					this.phoneNum = user.mobile.substring(0, 3) + '****' + user.mobile.substring(7);
 					this.money = money;
 					this.money.map(e => {
@@ -353,7 +357,7 @@ export default {
 						}
 						return e;
 					});
-					this.scoreMoney = scoreMoney;
+					this.scoreMoney = scoreMoney.slice(0,1) || [];
 					this.score = score;
 					this.lots = lots;
 					this.auctionLots = auctionLots;

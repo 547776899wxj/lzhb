@@ -52,6 +52,7 @@
 			this.onFetchUserInfo();
 		},
 		onLoad() {
+			uni.showShareMenu();
 			this.getGoodsPartition();
 		},
 		methods:{

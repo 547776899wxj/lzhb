@@ -37,22 +37,22 @@
 						<image :src="domainStatic+'/img/icon/openbox-icon@2x.png'" class="openbox-icon"></image>
 						<view class="fs-28 lh-28 fc-464 fw-b">开盒名单</view>
 					</view>
-					<view class="navi-btn" @click.stop="toNewBox()">查看</view>
+					<!-- <view class="navi-btn" @click.stop="toNewBox()">查看</view> -->
 				</view>
 				<view class="winner-list">
 					<swiper :circular="true" :disable-touch="true" :indicator-dots="false" :autoplay="true" :vertical="true" :interval="3000" :duration="1000">
 						<swiper-item v-for="newOpenList in showOpenList">
-							<view class="swiper-item">
-								<view class="winner dflex ac" v-for="openItem in newOpenList">
+							<view class="swiper-item pl20">
+								<view class="dflex ac" v-for="(openItem,index) in newOpenList" :key='index' style="margin-bottom: 20rpx;">
 									<image :src="openItem.goodsImage" class="winner-img"></image>
-									<view class="dflex fdc jc-fs winner-info">
-										<view class="fs-26 lh-36 fc-464 user-length">恭喜 {{ openItem.userNickName || openItem.mobile }}</view>
+									<view class="dflex fdc jc-fs winner-info" >
+										<view class="fs-26 lh-36 fc-464 user-length" >恭喜 {{ openItem.userNickName || openItem.mobile }}</view>
 										<view class="fs-26 lh-36 fc-464 user-length">抽中了{{ openItem.goodsTitle }}</view>
 									</view>
-									<view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
+									<!-- <view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
 										<image :src="domainStatic+'/img/icon/default-user.png'" class="winner-user mr12"></image>
 										<view class="fs-26 lh-26 fc-ff0">回收了{{ openItem.goodsItemRecyclePrice }}魔石</view>
-									</view>
+									</view> -->
 								</view>
 							</view>
 						</swiper-item>
@@ -125,6 +125,7 @@ export default {
 	},
 	onLoad() {
 		this.onFetchData();
+		uni.showShareMenu();
 	},
 	onShow() {
 		if (uni.$auth.isLogin()) {
@@ -408,7 +409,7 @@ export default {
 	margin-right: 34rpx;
 }
 .user-length {
-	width: 280rpx;
+	width: 490rpx;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

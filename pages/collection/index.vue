@@ -79,6 +79,7 @@
 					  uni.$utils.blankScreenWatchAndRelunch(this,'#containerId','/pages/goods/list')
 				},
 				onLoad(e) {
+					uni.showShareMenu();
 					this.queryObj = Object.assign(this.queryObj, e)
 				},
 				onShow() {

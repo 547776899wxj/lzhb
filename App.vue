@@ -22,6 +22,8 @@ export default {
 		// #ifdef APP-PLUS
 		this.onSubscribePush();
 		// #endif
+		
+		
 	},
 	onShow: function() {
 		console.log('App Show');

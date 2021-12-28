@@ -95,12 +95,13 @@
 				datestart: '2018-12-25',
 				dateend: '2021-05-22',
 				CustomBar: this.CustomBar,
+				StatusBar: this.StatusBar,
 			}
 		},
 		computed: {
 			style() {
 				var CustomBar= this.CustomBar;
-				var style = `height:${CustomBar}px;padding-top:${StatusBar}px;`;
+				var style = `height:${CustomBar}px;padding-top:${this.StatusBar}px;`;
 				return style
 			}
 		},

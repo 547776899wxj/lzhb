@@ -63,6 +63,7 @@
 		},
 		onLoad(e) {
 			console.log(e);
+			uni.showShareMenu();
 			this.partitionId = e.id;
 			this.partitionTitle = e.title;
 			this.containerHeight = `calc(100% - ${this.CustomBar + 8}px)` ;

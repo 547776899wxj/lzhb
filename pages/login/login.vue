@@ -266,6 +266,23 @@
 				// 	uni.navigateBack({delta: 1});
 				// }
 			},
+			// 微信登录
+			wxLogin(){
+				uni.login({
+				  provider: 'weixin',
+				  success: loginRes => {
+					uni.$api.getWxOpenToken({code:loginRes.code}).then((res)=>{
+						console.log(res);
+					})
+				  },
+				  fail: res=>{ 
+					uni.showToast({
+						title: '登录失败', 
+						icon:'none'
+					});
+				  }
+				});
+			},
 			onLogin(){
 				let {userName, password, isCheck} = this.form
 				/* if (!isCheck) {
@@ -288,6 +305,9 @@
 					console.log(JSON.stringify(res))
 					uni.$toast.showToast("登录成功！");
 					uni.$auth.loginSuccess(res)
+					// #ifdef MP-WEIXIN
+					this.wxLogin();
+					// #endif
 					setTimeout(()=>{
 						this.onLoginClose()
 					},1000)

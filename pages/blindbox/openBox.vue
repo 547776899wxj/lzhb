@@ -369,6 +369,7 @@ export default {
 		this.isPreview = e.isPreview;
 		this.onFetchData();
 		this.onFetchUserInfo();
+		uni.showShareMenu();
 	},
 	onShow() {
 		this.getGoodsGameboxItemShow();
@@ -495,6 +496,11 @@ export default {
 			this.rechargeAndPaying = true;
 			var model = this.channelData[0];
 			model.money = payMoney - balanceMoney;
+			// #ifdef MP-WEIXIN
+				model.payId = 204;
+				model.channelType = 2;
+				model.payType = 1;
+			// #endif
 			uni.$api
 				.rechargeScoreNew(model)
 				.then(res => {
@@ -768,6 +774,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cu-bar{
+	position: relative !important;
+}
 .adv-img{
 	width: 100%;
 	height: 160rpx;

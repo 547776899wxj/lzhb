@@ -1,5 +1,7 @@
 /** 发送短信验证码-注册 **/
 export const sendRegisterSmsCode = data => post('/rest/v4/pp/app/sendRegisterSmsCode', data);
+/** 微信小程序获取openid**/
+export const getWxOpenToken = data => post('/rest/v4/pp/app/getWxOpenToken', data);
 /** 推荐注册-获取数据 **/
 export const getDataForRegister = data => post('/rest/v4/pp/h5/register/getData', data);
 /** 发送短信验证码-登录 **/

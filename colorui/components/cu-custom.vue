@@ -84,7 +84,6 @@
 				});
 			},
 			goToUrl:function(){
-				
 				uni.navigateTo({
 					url:this.rightUrl
 				})

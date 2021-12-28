@@ -9,7 +9,8 @@
 					<image :src="recUser.userPhoto || domainStatic+'/img/icon/default-user.png'" class="invite-head-img" mode=""></image>
 				</view>
 				<view class="fs-36 lh-36 fc-3 mb20">邀请您注册领取福利啦！</view>
-				<view class="fs-28 lh-28 fc-9 mb40">{{recUser.userNickName}} {{recUser.mobile}}</view>
+				<view class="fs-28 lh-28 fc-9 mb40">{{recUser.mobile}}</view>
+				<view class="download-btn lh-32 fs-32 flex-center" @click="navTo">如已注册请点此返回首页</view>
 			</view>
 			<view class="form mb48">
 				<image class="form-icon" :src="domainStatic+'/invite/title@2x.png'"></image>
@@ -84,7 +85,8 @@
 			}
 		},
 		onLoad(options) {
-			let recUserId = options.userId || '0'
+			console.log(options);
+			let recUserId = options.id || '0'
 			uni.$api.getDataForRegister({
 				userId: recUserId
 			}).then(res =>{
@@ -93,6 +95,11 @@
 			})
 		},
 		methods: {
+			navTo(){
+				uni.switchTab({
+					url:'../index/main'
+				})
+			},
 			onSendCode(){
 				let {mobile} = this.form
 				if (!mobile) {
@@ -188,7 +195,7 @@ page {
 }
 .invite-info-box {
 	width: 100%;
-	height: 220rpx;
+	height: 310rpx;
 	padding-top: 87rpx;
 	position: relative;
 }

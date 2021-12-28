@@ -141,6 +141,7 @@
 					uni.$toast.showError('请勾选同意支付协议！');
 					return;
 				}
+				// 除了微信小程序
 				// #ifndef MP-WEIXIN 
 					var item = this.channelData.find(e => {
 						return e.channelCheck == 1
@@ -152,6 +153,7 @@
 					this.model.payId = item.payId;
 					this.model.channelType = item.channelType;
 				// #endif
+				//微信小程序
 				// #ifdef MP-WEIXIN
 					this.model.payId = 204;
 					this.model.channelType = 2;
@@ -159,7 +161,6 @@
 				// #endif
 				var self = this;
 				uni.$api.rechargeScore(this.model).then(res => {
-					console.log(JSON.stringify(res.data))
 					var istest = false;
 					if (res.hasOwnProperty("data")) {
 						if (res.data.hasOwnProperty("package")) {
@@ -188,17 +189,39 @@
 						});
 
 					} else { //走真实支付接口
-
-						if (self.model.channelType < 4) {
+						//微信支付
+						console.log(res.data);
+						if (self.model.channelType == 2) {
 							var provider = "wxpay";
-							switch (self.model.channelType) {
-								case 2:
-									provider = "wxpay";
-									break;
-								case 3:
-									provider = "alipay";
-									break;
-							}
+							uni.requestPayment({
+								provider: provider,
+								orderInfo: res.orderInfo, //微信、支付宝订单数据 【注意微信的订单信息，键值应该全部是小写，不能采用驼峰命名】
+								timeStamp: res.data.timeStamp,
+								nonceStr: res.data.nonceStr,
+								package:  res.data.package,
+								signType: res.data.signType,
+								paySign: res.data.paySign,
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									uni.$toast.showToast('充值成功！');
+									setTimeout(() => {
+										uni.navigateBack();
+									}, 1000)
+								},
+								fail: function(err) {
+									console.log('fail:' + JSON.stringify(err));
+									let errMsg = err.errMsg
+									if (errMsg.indexOf("取消")){
+										
+									}
+									else {
+										uni.$toast.alert(JSON.stringify(err))
+									}
+								}
+							});
+						}
+						if (self.model.channelType == 3) {
+							var provider = "alipay";
 							uni.requestPayment({
 								provider: provider,
 								orderInfo: res.orderInfo, //微信、支付宝订单数据 【注意微信的订单信息，键值应该全部是小写，不能采用驼峰命名】
