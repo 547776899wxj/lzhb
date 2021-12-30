@@ -12,13 +12,15 @@
 		</view>
 		<view class="content">
 			<view class="special-area mb20">
-				<view class="special" @click.stop="toBlindboxIndex()">
+				<view class="special" @click.stop="toBlindboxIndex(1)">
 					<image :src="menu1.advUrl" class="special-bg"></image>
 					<view class="dflex fdc ai-fe special-text">
 						<image :src="domainStatic+'/img/icon/now-icon@2x.png'" class="area-icon"></image>
 						<view class="fs-26 lh-26 fc-464 fw-b">即时专区</view>
 					</view>
 				</view>
+				<!-- 时段专区传2 -->
+				<!-- <view class="special" @click.stop="toBlindboxIndex(2)"> -->
 				<view class="special" @click.stop="toTimeBox()">
 					<image :src="menu2.advUrl" class="special-bg"></image>
 					<view class="dflex fdc ai-fe special-text">
@@ -213,9 +215,10 @@ export default {
 				url: '/pages/blindbox/newbox'
 			});
 		},
-		toBlindboxIndex() {
+		//时段专区传2
+		toBlindboxIndex(intervalType) {
 			uni.navigateTo({
-				url: '/pages/blindbox/boxList'
+				url: `/pages/blindbox/boxList?intervalType=${intervalType}`
 			});
 		},
 		toTimeBox() {

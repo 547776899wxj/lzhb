@@ -2,8 +2,8 @@
     "name" : "盒变空间",
     "appid" : "__UNI__8C2C00C",
     "description" : "",
-    "versionName" : "2.0.3",
-    "versionCode" : 203,
+    "versionName" : "2.0.4",
+    "versionCode" : 204,
     "transformPx" : false,
     "plus" : {
         "kernel" : {
@@ -169,7 +169,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/rest" : {
-                    "target" : "http://192.168.0.149:8502",
+                    "target" : "http://192.168.0.155:8502",
                     // "target" : "https://boxapp.citytp.com",
                     "changeOrigin" : true,
                     "pathRewrite" : {

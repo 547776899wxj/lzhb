@@ -67,7 +67,7 @@
 					<image :src="popupData.goodsImage" mode="" class="goods-image"></image>
 					<view class="wp100">
 						<view class="goods-name mt8 mb48">{{popupData.goodsTitle}}</view>
-						<view class="flex-between ac mb20">
+						<view class="flex-between ac mb20" >
 							<view class="fs-28 lh-28 fc-464">数量：</view>
 							<view class="fs-28 lh-28 fc-464">x1</view>
 						</view>
@@ -138,7 +138,7 @@
 					},
 					{
 						goodsItemSaleStatus:"0",
-						tabName:"已支付",
+						tabName:"未回收",
 						number:0
 					},
 					{
@@ -315,11 +315,6 @@
 				if (orderType == 0) {
 					uni.navigateTo({
 						url:"/pages/order/pay?orderId="+orderId
-					})
-				}
-				if (orderType == 11) {
-					uni.navigateTo({
-						url:"/pages/order/auctionpay?orderId="+orderId
 					})
 				}
 				if (orderType == 29) {

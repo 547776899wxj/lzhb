@@ -7,12 +7,12 @@
 		<view class="container">
 			<view class="toker-achievements flex-center">
 				<view class="flex-center fdc wp50">
-					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{level==1?info.secondRecUserCount:info.recUserCount}}</view>
+					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{level==1?userInfo.secondRecUserCount:userInfo.recUserCount}}</view>
 					<view class="fs-24 lh-34 fc-939">{{level==1?'间推':'直推'}}人员</view>
 				</view>
 				<view class="toker-line"></view>
 				<view class="flex-center fdc wp50">
-					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{info.teamConsumeMoneySum}}</view>
+					<view class="fs-48 lh-60 fc-303 fw-b mb8">{{userInfo.teamConsumeMoneySum}}</view>
 					<view class="fs-24 lh-34 fc-939">团队业绩</view>
 				</view>
 			</view>
@@ -115,21 +115,48 @@
 					children:[]
 				},
 				level:0,
+				offset:0,
+				limit:15,
+				isReachBottom:true,
+				userInfo:{},
 			}
 		},
 		onLoad({level}) {
 			this.level = level;
 			this.onFetchData()
 		},
-		computed:{
-			
+		onReachBottom(){
+			if(this.isReachBottom){
+				this.offset += this.limit;
+				this.onFetchData();
+			}
 		},
 		methods: {
 			onFetchData(){
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
 				uni.$api.getUserBesinessInfo({
-					type:this.level==1?'indirect':'direct'
+					type:this.level==1?'indirect':'direct',
+					offset:this.offset,
+					limit:this.limit,
 				}).then(res =>{
-					this.info = res.data
+					uni.hideLoading();
+					let children = this.info.children;
+					if(this.userInfo.teamConsumeMoneySum == undefined){
+						this.userInfo = {
+							secondRecUserCount:res.data.secondRecUserCount,
+							recUserCount:res.data.recUserCount,
+							teamConsumeMoneySum:res.data.teamConsumeMoneySum
+						}
+					}
+					this.info.children = this.info.children.concat(res.data.children);
+					if(res.data.children.length < this.limit){
+						this.isReachBottom = false
+					}
+				}).catch(()=>{
+					uni.hideLoading();
 				})
 			},
 			onChangeExtand(index){

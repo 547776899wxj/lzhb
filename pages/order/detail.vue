@@ -350,12 +350,6 @@
 						url:"/pages/order/pay?orderId="+orderId
 					})
 				}
-				if (orderType == 11) {
-					uni.navigateTo({
-						url:"/pages/order/auctionpay?orderId="+orderId
-					})
-				}
-				
 				
 			},
 			back () {

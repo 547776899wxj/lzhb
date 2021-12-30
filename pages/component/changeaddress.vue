@@ -48,7 +48,7 @@
 			addressList:{
 				type:Array,
 				default:[]
-			}
+			},
 		},
 		data() {
 			return {

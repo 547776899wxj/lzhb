@@ -12,8 +12,10 @@ domain = 'https://boxapp.citytp.com';
 // #ifdef H5
 	domain = '/rest'; 
 // #endif 
+
 // #ifdef MP-WEIXIN
 	domain = 'https://boxapp.citytp.com';
+	// domain = 'http://192.168.0.155:8502';
 // #endif
 /* QQ地图KEY */
 

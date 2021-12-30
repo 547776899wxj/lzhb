@@ -176,31 +176,7 @@
             
         }
         ,{
-            "path" : "pages/order/addorder",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
             "path" : "pages/order/pay",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/auctionpay",
             "style" :                                                                                    
             {
 				"app-plus":{
@@ -225,18 +201,6 @@
         }
         ,{
             "path" : "pages/order/logistics",
-            "style" :                                                                                    
-            {
-				"app-plus":{
-					"bounce":"none"
-				},
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/order/logisticspay",
             "style" :                                                                                    
             {
 				"app-plus":{

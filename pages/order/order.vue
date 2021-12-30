@@ -268,11 +268,6 @@
 						url:"/pages/order/pay?orderId="+orderId
 					})
 				}
-				if (orderType == 11) {
-					uni.navigateTo({
-						url:"/pages/order/auctionpay?orderId="+orderId
-					})
-				}
 				if (orderType == 29) {
 					this.orderScorePay(orderId)
 					

@@ -2,7 +2,7 @@
 	<view>
 		<view class="cu-modal" :class="alert?'show':''">
 			<view class="cu-dialog">
-				<view class="cu-bar bg-white justify-end">
+				<view class="cu-bar bg-white justify-end pos-r">
 					<view class="content">联系客服</view>
 					<view class="action" @tap="hideModal">
 						<text class="cuIcon-close text-red"></text>
@@ -66,7 +66,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 .line-de6 {
 	color: #303133;
 	border: 1px solid #DDDDE6;

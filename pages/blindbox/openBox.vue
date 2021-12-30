@@ -23,16 +23,16 @@
 		<view class="container">
 			<view class="wrapper">
 				<view class="openbox mb60">
-					<view class="flex-between ac mb26">
+					<view class="flex ac mb26">
 						<view class="dflex ac">
 							<image :src="domainStatic+'/img/icon/openbox-icon@2x.png'" class="openbox-icon"></image>
-							<view class="fs-28 lh-28 fc-464 fw-b">{{ goods.goodsTitle }}</view>
+							<!-- <view class="fs-28 lh-28 fc-464 fw-b">{{ goods.goodsTitle }}</view> -->
 						</view>
 						<view class="fs-28 lh-28 fc-464">请选择您心仪的盒子</view>
 					</view>
 					<view class="blindbox-list mb42">
 						<view class="blindbox" v-for="(item, index) in blindbox" @click.stop="changeBox(item)">
-							<image :src="domainStatic+'/img/images/openBoxBg.png'" class="blindbox-case"></image>
+							<image :src="domainStatic+'/img/icon/openbox-icon@3x.png'" class="blindbox-case"></image>
 							<image :src="domainStatic+'/img/images/blindbox-cur@2x.png'" class="blindbox-cur" v-if="item.checked"></image>
 						</view>
 					</view>
@@ -51,16 +51,16 @@
 						<swiper :circular="true" :disable-touch="true" :indicator-dots="false" :autoplay="true" :vertical="true" :interval="3000" :duration="1000">
 							<swiper-item v-for="newOpenList in showOpenList">
 								<view class="swiper-item">
-									<view class="winner dflex ac" v-for="openItem in newOpenList">
+									<view class="dflex ac " v-for="openItem in newOpenList" style="margin-bottom: 20rpx;">
 										<image :src="openItem.goodsImage" class="winner-img"></image>
 										<view class="dflex fdc jc-fs">
 											<view class="fs-26 lh-36 fc-464 user-length">恭喜 {{ openItem.userNickName || openItem.mobile }}</view>
-											<view class="fs-26 lh-36 fc-464 user-length">抽中了{{ openItem.goodsTitle }}</view>
+											<view class="fs-26 lh-36 fc-464 user-length">获得{{ openItem.goodsTitle }}</view>
 										</view>
-										<view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
+										<!-- <view class="dflex ac" v-if="openItem.goodsItemSaleStatus == 10">
 											<image :src="domainStatic+'/img/icon/default-user.png'" class="winner-user mr12"></image>
 											<view class="fs-26 lh-26 fc-ff0">回收了{{ openItem.goodsItemRecyclePrice }}魔石</view>
-										</view>
+										</view> -->
 									</view>
 								</view>
 							</swiper-item>
@@ -197,7 +197,9 @@
 								</view>
 							</view>
 						</view>
-						<image @click="navToUser" :src="domainStatic+'/img/bg/adv-Invitation.png'" mode="widthFix" class="adv-img" :style="{position: paySuccessResult.rows.length>1?'relative':'absolute'}"></image>
+						<view class="">
+							<image @click="navToUser" :src="domainStatic+'/img/bg/adv-Invitation.png'" mode="widthFix" class="adv-img" ></image>
+						</view>
 					</scroll-view>
 					<view>
 						<view class="coupon" v-show="isCouponShow">
@@ -331,7 +333,8 @@ export default {
 			loadingText:'加载中...',
 			isPreview:1,
 			voucherList:[],
-			domainStatic:this.domainStatic
+			domainStatic:this.domainStatic,
+			intervalType:1,
 		};
 	},
 	created: function() {
@@ -366,6 +369,7 @@ export default {
 	},
 	onLoad(e) {
 		this.goodsId = e.goodsId || '1';
+		this.intervalType = e.intervalType;
 		this.isPreview = e.isPreview;
 		this.onFetchData();
 		this.onFetchUserInfo();
@@ -557,6 +561,14 @@ export default {
 			this.paySuccessResult.rows = [];
 			this.paySuccessResult.totalRecyclePrice = 0;
 			this.paySuccessResult.orderId = orderId;
+			// 时段专区跳过
+			if(this.intervalType == 2){
+				uni.hideLoading();
+				uni.showToast({
+					title: '到点自动开盒'
+				});
+				return
+			}
 			this.showPaySuccess = true;
 			return uni.$api
 				.getMhGoodsGameBoxItemDataByOrderId({
@@ -780,8 +792,8 @@ export default {
 .adv-img{
 	width: 100%;
 	height: 160rpx;
-	bottom: 0px;
-	left: 0;
+	position: relative;
+	margin-top: 20rpx;
 }
 .close-image {
 	position: absolute;
@@ -866,6 +878,7 @@ export default {
 .openbox-icon {
 	width: 50rpx;
 	height: 50rpx;
+	min-width: 50rpx;
 	margin-right: 14rpx;
 	margin-left: -2rpx;
 }
@@ -943,7 +956,7 @@ export default {
 	margin-right: 34rpx;
 }
 .user-length {
-	width: 280rpx;
+	width: 490rpx;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;

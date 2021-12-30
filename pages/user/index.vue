@@ -14,9 +14,6 @@
 			<view class="dflex fdc jc-fs">
 				<view class="fs-36 lh-48 fc-f fw-b mb12">
 					{{ user.userNickName || user.userId }}
-					<!-- 	<template v-if="user.userNickName">
-						({{ user.userNickName }})
-					</template> -->
 				</view>
 				<view class="fs-26 lh-32 fc-f op8">{{ phoneNum }} ></view>
 			</view>
@@ -180,11 +177,10 @@ export default {
 			path:'',
 		};
 	},
+	// 邀请
 	onShareAppMessage() {
-		var shareUrl = this.user.userShareMpWxUrl;
 		var title = this.user.userShareContent;
 		var imageUrl = this.user.userShareMpWxImageUrl;
-		
 		return {
 			title,
 			path: this.path,

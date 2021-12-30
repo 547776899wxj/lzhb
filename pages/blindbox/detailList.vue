@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-white" :isBack="true" backMethod="backHandle2">
 			<block slot="backText"></block>
 			<block slot="content">
-				<text>即时专区</text>
+				<text>{{intervalType==2?'时段专区':'即时专区'}}</text>
 			</block>
 		</cu-custom>
 		<view class="line"></view>
@@ -11,7 +11,7 @@
 			<view class="content">
 				<view class="dflex align-center">
 					<view class="title">
-						<text class="pl20">{{partitionTitle}}</text>
+						<text class="">{{partitionTitle}}</text>
 					</view>
 					<view class="top-tip">Magic stone zone</view>
 				</view>
@@ -58,7 +58,8 @@
 				gameboxList:[],
 				containerHeight: '100%',
 				domainStatic:this.domainStatic,
-				partitionTitle:''
+				partitionTitle:'',
+				intervalType:1,
 			}
 		},
 		onLoad(e) {
@@ -66,6 +67,7 @@
 			uni.showShareMenu();
 			this.partitionId = e.id;
 			this.partitionTitle = e.title;
+			this.intervalType = e.intervalType;
 			this.containerHeight = `calc(100% - ${this.CustomBar + 8}px)` ;
 			this.onFetchData();
 		},
@@ -97,7 +99,7 @@
 			},
 			gotoBoxDetail(id) {
 				uni.navigateTo({
-					url: '/pages/blindbox/openBox?goodsId=' + id 
+					url: '/pages/blindbox/openBox?goodsId=' + id +'&intervalType='+this.intervalType
 				})
 			},
 		}
